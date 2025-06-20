@@ -2,8 +2,8 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Centre d'assistance Deemply",
-  description: "Centre d'assistance Deemply",
+  title: "Centre d'aide Deemply",
+  description: "Centre d'aide Deemply",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

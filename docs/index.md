@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "Deemply"
-  text: "Centre d'assistance"
+  text: "Centre d'aide"
   tagline: Apprenez à utiliser notre application avec nos guides détaillés
   actions:
     - theme: brand
