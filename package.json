@@ -5,6 +5,7 @@
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
+    "postbuild": "cp -r docs/public/admin docs/.vitepress/dist/admin",
     "docs:preview": "vitepress preview docs"
   }
 }
