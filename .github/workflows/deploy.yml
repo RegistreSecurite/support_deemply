@@ -1,0 +1,37 @@
+name: Build and Deploy via FTP
+
+on:
+  push:
+    branches:
+      - main  # Change to 'master' if your default branch is master
+
+jobs:
+  build-and-deploy:
+    name: Deploy the build to the PROD server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  # Change if you need a different version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21 
+          local-dir: ./dist  # Change if your build output is in another folder
+          server-dir: /path/on/server/  # Change to the target directory on your ftp server
+          dangerous-clean-slate: true  # Remove this line if you don't want to delete everything before upload
