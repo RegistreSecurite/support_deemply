@@ -4,8 +4,8 @@ backend:
   branch: main
   auth_type: implicit
 
-media_folder: docs/public/img
-public_folder: /img
+media_folder: docs/public/images
+public_folder: /images
 
 collections:
   - name: 'guide'

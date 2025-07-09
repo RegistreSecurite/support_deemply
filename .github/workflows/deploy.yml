@@ -32,6 +32,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           port: 21 
-          local-dir: ./dist/  # Change if your build output is in another folder
+          local-dir: ./docs/.vitepress/dist/  # VitePress output directory
           server-dir: /var/www/support_deemply_com/www/  # Change to the target directory on your ftp server
           dangerous-clean-slate: true  # Remove this line if you don't want to delete everything before upload
