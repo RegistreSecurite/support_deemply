@@ -1,9 +1,10 @@
+publish_mode: editorial_workflow
+
 backend:
   name: github
   repo: RegistreSecurite/support_deemply
   branch: main
   auth_type: implicit
-  app_id: # Laissez vide, sera configuré par OAuth
 
 media_folder: docs/public/images
 public_folder: /images
@@ -14,8 +15,8 @@ collections:
     folder: 'docs/guide'
     create: true
     slug: '{{slug}}'
-    editor:
-      preview: false
+    editor: { preview: true }
+    publish: true
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Description', name: 'description', widget: 'string' }
