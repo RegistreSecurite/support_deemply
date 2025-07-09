@@ -9,9 +9,12 @@
     "build": "vitepress build docs",
     "postbuild": "cp -r docs/public/admin docs/.vitepress/dist/admin",
     "docs:preview": "vitepress preview docs",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "start": "NODE_ENV=production node server.js"
   },
+  "type": "module",
   "dependencies": {
+    "http-proxy-middleware": "^3.0.5",
     "node-fetch": "^2.7.0"
   }
 }
