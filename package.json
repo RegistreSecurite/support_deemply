@@ -1,12 +1,16 @@
 {
   "devDependencies": {
+    "express": "^5.1.0",
     "vite-plugin-decap-cms": "^0.4.0",
     "vitepress": "^1.6.3"
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "postbuild": "cp -r docs/public/admin docs/.vitepress/dist/admin",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
   }
 }

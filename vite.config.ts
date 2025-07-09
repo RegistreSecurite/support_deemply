@@ -15,14 +15,19 @@ export default defineConfig({
                     branch: 'main',
                     authType: 'implicit',
                 },
-                mediaFolder: '/src/public/images',
-                publicFolder: '/images',
+                mediaFolder: 'docs/public/img',
+                publicFolder: '/img',
                 collections: [
                     createFolderCollection({
                         name: 'guide',
                         label: 'Guide',
+                        folder: 'docs/guide',
+                        create: true,
+                        slug: '{{slug}}',
                         fields: [
-                            createField('markdown', { name: 'body' }),
+                            createField('string', { name: 'title', label: 'Title' }),
+                            createField('string', { name: 'description', label: 'Description' }),
+                            createField('markdown', { name: 'body', label: 'Body' }),
                         ],
                     }),
                 ]
