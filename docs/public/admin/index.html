@@ -4,15 +4,49 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager</title>
-    <!-- Désactiver l'authentification Netlify Identity -->
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity = undefined;
-      }
-    </script>
   </head>
   <body>
+    <!-- Configuration pour l'authentification GitHub -->
+    <script>
+      window.CMS_MANUAL_INIT = true;
+    </script>
+    
     <!-- Include the script that builds the page and powers Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    
+    <script>
+      // Configuration pour l'authentification GitHub
+      const { CMS, initCMS } = window;
+      
+      initCMS({
+        config: {
+          backend: {
+            name: 'github',
+            repo: 'RegistreSecurite/support_deemply',
+            branch: 'main',
+            auth_type: 'implicit'
+          },
+          media_folder: 'docs/public/images',
+          public_folder: '/images',
+          collections: [
+            {
+              name: 'guide',
+              label: 'Guide',
+              folder: 'docs/guide',
+              create: true,
+              slug: '{{slug}}',
+              editor: {
+                preview: false
+              },
+              fields: [
+                { label: 'Title', name: 'title', widget: 'string' },
+                { label: 'Description', name: 'description', widget: 'string' },
+                { label: 'Body', name: 'body', widget: 'markdown' }
+              ]
+            }
+          ]
+        }
+      });
+    </script>
   </body>
 </html>
