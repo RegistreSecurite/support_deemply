@@ -15,7 +15,8 @@ export default defineConfig({
                     branch: 'main',
                     authType: 'implicit',
                 },
-                mediaFolder: '/src/public/',
+                mediaFolder: '/src/public/images',
+                publicFolder: '/images',
                 collections: [
                     createFolderCollection({
                         name: 'guide',
