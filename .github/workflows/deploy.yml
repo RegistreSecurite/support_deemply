@@ -26,12 +26,6 @@ jobs:
 
       - name: Post build project
         run: npm run postbuild
-        
-      - name: Copy .htaccess files to build directory
-        run: |
-          cp -f docs/public/.htaccess docs/.vitepress/dist/
-          mkdir -p docs/.vitepress/dist/admin
-          cp -f docs/public/admin/.htaccess docs/.vitepress/dist/admin/
           
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
