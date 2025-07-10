@@ -9,6 +9,9 @@ export default defineConfig({
   
   // Autres configurations
   themeConfig: {
+    search: {
+      provider: 'local'
+    },
     nav: [
       { text: 'Accueil', link: '/' },
       { text: 'Guide', link: '/guide/' }
