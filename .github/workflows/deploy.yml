@@ -37,4 +37,4 @@ jobs:
           port: 21 
           local-dir: ./docs/.vitepress/dist/  # VitePress output directory
           server-dir: /  # Change to the target directory on your ftp server
-          dangerous-clean-slate: true  # Remove this line if you don't want to delete everything before upload
+          # dangerous-clean-slate: true  # Remove this line if you don't want to delete everything before upload
