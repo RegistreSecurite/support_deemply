@@ -30,12 +30,8 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps  # Changez à ftps si votre serveur utilise FTPS
-          port: 21       # Port FTP standard, modifiez si nécessaire
-          local-dir: ./docs/.vitepress/dist/  # Répertoire de sortie VitePress
-          server-dir: ${{ secrets.FTP_SERVER_DIR || '/' }}  # Répertoire cible sur votre serveur FTP
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-          dangerous-clean-slate: false  # Ne pas supprimer les fichiers existants
+          protocol: ftps
+          port: 21 
+          local-dir: ./docs/.vitepress/dist/  # VitePress output directory
+          server-dir: /  # Change to the target directory on your ftp server
+          # dangerous-clean-slate: true  # Remove this line if you don't want to delete everything before upload
