@@ -23,9 +23,6 @@ jobs:
 
       - name: Build project
         run: npm run build
-
-      - name: Post build project
-        run: npm run postbuild
           
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
