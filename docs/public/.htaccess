@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# 1. Si un cookie "access_granted" existe, autoriser
+RewriteCond %{HTTP:Cookie} access_granted=true [NC]
+RewriteRule ^ - [E=HAS_ACCESS:true,L]
+
+# 2. Si le Referer est autorisé, autoriser
+RewriteCond %{HTTP_REFERER} ^https://(app|demo|staging)\.(deemply|registresecurite)\.com [NC]
+RewriteRule ^ - [E=HAS_ACCESS:true,L]
+
+# 3. Si aucune des deux règles ci-dessus ne donne accès, bloquer
+RewriteCond %{ENV:HAS_ACCESS} !^true$
+RewriteRule ^ - [F]
+
+# 4. Si on est autorisé, poser le cookie (attention à la condition)
+Header set Set-Cookie "access_granted=true; Max-Age=3600; Path=/" "env=HAS_ACCESS"
