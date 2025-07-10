@@ -1,37 +1,16 @@
 import { defineConfig } from 'vite'
-import decap, {
-    createFolderCollection,
-    createField,
-} from 'vite-plugin-decap-cms'
+import { resolve } from 'path'
 
 export default defineConfig({
-    publicDir: 'public',
-    plugins: [
-        decap({
-            config: {
-                backend: {
-                    name: 'github',
-                    repo: 'RegistreSecurite/support_deemply',
-                    branch: 'main',
-                    authType: 'implicit',
-                },
-                mediaFolder: 'docs/public/images',
-                publicFolder: '/images',
-                collections: [
-                    createFolderCollection({
-                        name: 'guide',
-                        label: 'Guide',
-                        folder: 'docs/guide',
-                        create: true,
-                        slug: '{{slug}}',
-                        fields: [
-                            createField('string', { name: 'title', label: 'Title' }),
-                            createField('string', { name: 'description', label: 'Description' }),
-                            createField('markdown', { name: 'body', label: 'Body' }),
-                        ],
-                    }),
-                ]
-            }
-        })
-    ],
+  root: 'docs', // indique que la racine de ton projet est /docs
+  server: {
+    port: 5173,
+    open: true,
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './docs'),
+    },
+  },
+  publicDir: 'docs/public', // où sont les images et fichiers statiques
 })

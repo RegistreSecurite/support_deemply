@@ -1,13 +1,14 @@
-publish_mode: editorial_workflow
+publish_mode: editorial_workflow  # ✅ Active les drafts (brouillons) + PR
 
 backend:
   name: github
   repo: RegistreSecurite/support_deemply
   branch: main
-  auth_type: implicit
+  base_url: https://support.deemply.com/admin-oauth  # ✅ Ton serveur PHP d’OAuth
+  auth_endpoint: ""  # ✅ Important, évite /auth/auth
 
-media_folder: docs/public/images
-public_folder: /images
+media_folder: docs/public/images  # ✅ Là où les images sont stockées dans le repo
+public_folder: /images  # ✅ Là où elles seront visibles dans le site généré
 
 collections:
   - name: 'guide'
@@ -15,8 +16,8 @@ collections:
     folder: 'docs/guide'
     create: true
     slug: '{{slug}}'
-    editor: { preview: true }
-    publish: true
+    editor:
+      preview: true  # ✅ Active l’aperçu Markdown dans le CMS
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Description', name: 'description', widget: 'string' }
