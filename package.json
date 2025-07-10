@@ -1,13 +1,17 @@
 {
   "devDependencies": {
+    "vite-plugin-decap-cms": "^0.4.0",
     "vitepress": "^1.6.3"
   },
   "scripts": {
-    "docs:dev": "vitepress dev docs",
+    "dev": "vitepress dev docs",
+    "dev:watch": "node watch-and-dev.js",
     "build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs",
-    "dev": "node server.js",
-    "start": "NODE_ENV=production node server.js"
+    "postbuild": "mkdir -p docs/.vitepress/dist/admin && cp -r docs/public/admin/* docs/.vitepress/dist/admin/",
+    "preview": "vitepress preview docs"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "chokidar": "^4.0.3"
+  }
 }

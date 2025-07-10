@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { generateSidebar } from './sidebar-generator.js'
 
 export default defineConfig({
   title: 'Support Deemply',
@@ -17,13 +18,7 @@ export default defineConfig({
       { text: 'Guide', link: '/guide/' }
     ],
     
-    sidebar: [
-      {
-        text: 'Guide',
-        items: [
-          { text: 'Introduction', link: '/guide/' }
-        ]
-      }
-    ]
+    // Utilisation de la fonction de génération dynamique de la sidebar
+    sidebar: generateSidebar()
   }
 })
