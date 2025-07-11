@@ -11,6 +11,10 @@ hero:
       text: Consulter le guide
       link: /guide
 
+    - theme: brand
+      text: Consulter les dernieres mise à jour
+      link: /release
+
 features:
 ---
 

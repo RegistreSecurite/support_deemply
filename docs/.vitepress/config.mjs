@@ -15,7 +15,8 @@ export default defineConfig({
     },
     nav: [
       { text: 'Accueil', link: '/' },
-      { text: 'Guide', link: '/guide/' }
+      { text: 'Guide', link: '/guide/' },
+      { text: 'Notes de mise à jour', link: '/release/' }
     ],
     
     sidebar: generateSidebar()

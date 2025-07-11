@@ -1,14 +1,5 @@
 ---
-title: Introduction
-description: la premiere page du guide
+title: Bienvenue
+description: Vous retrouvez ici le guide de l'application Deemply
 ---
-
-  ## Introduction
-  <!---
-  le guide est un document qui va vous aider a comprendre comment utiliser le support deemply
-  --->
-
-## Introduction
-
-le guide est un document qui va vous aider a comprendre comment utiliser le support deemply
 
