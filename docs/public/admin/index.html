@@ -6,27 +6,6 @@
     <title>Content Manager</title>
   </head>
   <body>
-    <!-- Configuration pour l'authentification GitHub -->
-    <script>
-      // window.CMS_MANUAL_INIT = true;
-    </script>
-    
-    <!-- Include the script that builds the page and powers Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    
-    <script>
-      CMS.registerPreviewStyle("/style.css"); // si tu veux ajouter le CSS de ton site
-    
-      CMS.registerPreviewTemplate("guides", ({ entry }) => {
-        const data = entry.getIn(["data"]);
-        return `
-          <div style="padding: 2rem; font-family: sans-serif;">
-            <h1>${data.get("title")}</h1>
-            <div>${data.get("description")}</div>
-            <div>${data.get("body")}</div>
-          </div>
-        `;
-      });
-    </script>
   </body>
 </html>
