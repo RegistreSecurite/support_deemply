@@ -4,8 +4,8 @@ backend:
   name: github
   repo: RegistreSecurite/support_deemply
   branch: main
-  base_url: https://support.deemply.com/admin-oauth  # ✅ Ton serveur PHP d’OAuth
-  auth_endpoint: ""  # ✅ Important, évite /auth/auth
+  base_url: https://support.deemply.com  # ✅ Ton serveur PHP d’OAuth
+  auth_endpoint: "admin-oauth/public/auth"  # ✅ Important, évite /auth/auth
 
 media_folder: docs/public/images  # ✅ Là où les images sont stockées dans le repo
 public_folder: /images  # ✅ Là où elles seront visibles dans le site généré
