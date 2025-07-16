@@ -38,7 +38,7 @@ collections:
             { label: 'Registre de sécurité - Formation', value: 'safetyRegister/training' },
             { label: 'DUERP', value: 'duerp' },
             { label: 'Gestion des bâtiments', value: 'buildingManagement' },
-            { label: 'Registre d\'accessibilité', value: 'accessibilityRegister' },
+            { label: "Registre d'accessibilité", value: 'accessibilityRegister' },
             { label: 'Entrées/Sorties', value: 'entriesExits' },
             { label: 'Permis de feu', value: 'firePermits' },
             { label: 'Plan de prévention', value: 'preventionPlan' },
