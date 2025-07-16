@@ -118,28 +118,13 @@ function generateSidebarStructure(rootDir) {
 function formatDirName(dirName) {
   // Mapping des noms de dossiers vers des noms plus lisibles
   const dirNameMapping = {
-    'safetyRegister': 'Registre de sécurité',
-    'commission': 'Commission',
-    'employee': 'Employé',
-    'observation': 'Observation',
-    'prescription': 'Prescription',
-    'training': 'Formation',
-    'duerp': 'DUERP',
-    'buildingManagement': 'Gestion des bâtiments',
-    'accessibilityRegister': 'Registre d\'accessibilité',
-    'entriesExits': 'Entrées/Sorties',
-    'firePermits': 'Permis de feu',
-    'preventionPlan': 'Plan de prévention',
-    'healthRecord': 'Dossier médical',
-    'form': 'Formulaire',
-    'core': 'Core',
+    'core': 'Fonctionnalités communes',
     'activities': 'Activités',
     'interventions': 'Interventions',
     'materials': 'Matériels',
     'others': 'Autres',
     'providers': 'Fournisseurs',
-    'sites': 'Sites',
-    'common': 'Commun'
+    'sites': 'Sites'
   };
   
   return dirNameMapping[dirName] || dirName.charAt(0).toUpperCase() + dirName.slice(1);
