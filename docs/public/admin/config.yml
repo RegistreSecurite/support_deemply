@@ -18,7 +18,40 @@ collections:
     slug: '{{slug}}'
     editor:
       preview: true  # ✅ Active l’aperçu Markdown dans le CMS
+    nested:
+      depth: 10  # Profondeur maximale des sous-dossiers
+      summary: '{{title}}'
+    path: '{{folder}}/{{slug}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Description', name: 'description', widget: 'string' }
+      - { 
+          label: 'Dossier', 
+          name: 'folder', 
+          widget: 'select',
+          options: [
+            { label: 'Registre de sécurité', value: 'safetyRegister' },
+            { label: 'Registre de sécurité - Commission', value: 'safetyRegister/commission' },
+            { label: 'Registre de sécurité - Employé', value: 'safetyRegister/employee' },
+            { label: 'Registre de sécurité - Observation', value: 'safetyRegister/observation' },
+            { label: 'Registre de sécurité - Prescription', value: 'safetyRegister/prescription' },
+            { label: 'Registre de sécurité - Formation', value: 'safetyRegister/training' },
+            { label: 'DUERP', value: 'duerp' },
+            { label: 'Gestion des bâtiments', value: 'buildingManagement' },
+            { label: 'Registre d\'accessibilité', value: 'accessibilityRegister' },
+            { label: 'Entrées/Sorties', value: 'entriesExits' },
+            { label: 'Permis de feu', value: 'firePermits' },
+            { label: 'Plan de prévention', value: 'preventionPlan' },
+            { label: 'Dossier médical', value: 'healthRecord' },
+            { label: 'Formulaire', value: 'form' },
+            { label: 'Core', value: 'core' },
+            { label: 'Core - Activités', value: 'core/activities' },
+            { label: 'Core - Interventions', value: 'core/interventions' },
+            { label: 'Core - Matériels', value: 'core/materials' },
+            { label: 'Core - Autres', value: 'core/others' },
+            { label: 'Core - Fournisseurs', value: 'core/providers' },
+            { label: 'Core - Sites', value: 'core/sites' },
+            { label: 'Commun', value: 'common' }
+          ]
+        }
       - { label: 'Body', name: 'body', widget: 'markdown' }
