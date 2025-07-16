@@ -1,31 +1,38 @@
 import { defineConfig } from 'vitepress';
 import { generateSidebar } from './sidebar-generator.js';
 
-// Définir le plugin avant de l'utiliser dans la configuration
-const injectTitlePlugin = {
-  name: 'inject-title-h1',
-  transform(code, id, options) {
-    // Ne traite que les fichiers .md avec frontmatter
-    if (!id.endsWith('.md') || !options?.frontmatter?.title) return
-
-    const title = options.frontmatter.title.trim()
-    const lines = code.split('\n')
-
-    // Si un titre H1 existe déjà, on ne fait rien
-    const alreadyHasH1 = lines.find((line) => line.trim().startsWith('# '))
-    if (alreadyHasH1) return
-
-    // Injecte le titre au début
-    return `# ${title}\n\n${code}`
-  }
-};
+// Définir le plugin MarkdownIt pour injecter les titres H1
+function injectTitlePlugin(md) {
+  // Sauvegarder la fonction de rendu originale
+  const originalRender = md.render.bind(md);
+  
+  // Remplacer la fonction de rendu
+  md.render = function(src, env) {
+    // Vérifier si on a un titre dans le frontmatter et pas de H1 dans le contenu
+    if (env && env.frontmatter && env.frontmatter.title) {
+      const title = env.frontmatter.title.trim();
+      const lines = src.split('\n');
+      
+      // Vérifier s'il y a déjà un titre H1
+      const alreadyHasH1 = lines.find((line) => line.trim().startsWith('# '));
+      
+      // Si pas de H1, injecter le titre
+      if (!alreadyHasH1) {
+        src = `# ${title}\n\n${src}`;
+      }
+    }
+    
+    // Appeler la fonction de rendu originale avec le contenu modifié
+    return originalRender(src, env);
+  };
+}
 
 export default defineConfig({
   title: 'Support Deemply',
   description: 'Documentation d\'aide pour Deemply',
   markdown: {
     config(md) {
-      md.use(injectTitlePlugin)
+      injectTitlePlugin(md);
     }
   },
   themeConfig: {
