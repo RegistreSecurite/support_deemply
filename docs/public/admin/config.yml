@@ -16,7 +16,7 @@ collections:
     label_singular: 'Core'
     folder: _core
     create: true
-    nested: { depth: 100, subfolders: false }
+    nested: { depth: 100, subfolders: true }
     fields:
       - label: Title
         name: title
