@@ -11,45 +11,51 @@ media_folder: docs/public/images  # ✅ Là où les images sont stockées dans l
 public_folder: /images  # ✅ Là où elles seront visibles dans le site généré
 
 collections:
-  - name: 'core'
-    label: 'Core'
-    label_singular: 'Core'
-    folder: core
+  # Collection principale avec navigation hiérarchique
+  - name: 'guide'
+    label: 'Guide'
+    label_singular: 'Guide'
+    folder: 'docs/guide'
     create: true
-    nested: { depth: 100, subfolders: true }
+    slug: '{{slug}}'
+    editor:
+      preview: true
+    # Configuration pour les collections imbriquées
+    nested:
+      depth: 100
+      summary: '{{title}}'
     fields:
-      - label: Title
-        name: title
-        widget: string
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Description', name: 'description', widget: 'string', required: false }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
     meta: { path: { widget: string, label: 'Path', index_file: 'index' } }
 
-# collections:
-#   - name: 'guide'
-#     label: 'Guide'
-#     folder: 'docs/guide'
-#     create: true
-#     slug: '{{slug}}'
-#     editor:
-#       preview: true  # ✅ Active l'aperçu Markdown dans le CMS
-#     # Configuration pour les collections imbriquées
-#     nested: { depth: 100, subfolders: false }
-#     fields:
-#       - { label: 'Title', name: 'title', widget: 'string' }
-#       - { label: 'Description', name: 'description', widget: 'string' }
-#       - { 
-#           label: 'Dossier', 
-#           name: 'folder', 
-#           widget: 'select',
-#           options: [
-#             { label: 'Guide (racine)', value: '.' },
-#             { label: 'Fonctionnalités communes', value: 'core' },
-#             { label: 'Fonctionnalités communes - Activités', value: 'core/activities' },
-#             { label: 'Fonctionnalités communes - Interventions', value: 'core/interventions' },
-#             { label: 'Fonctionnalités communes - Matériels', value: 'core/materials' },
-#             { label: 'Fonctionnalités communes - Autres', value: 'core/others' },
-#             { label: 'Fonctionnalités communes - Fournisseurs', value: 'core/providers' },
-#             { label: 'Fonctionnalités communes - Sites', value: 'core/sites' }
-#           ]
-#         }
-#       - { label: 'Body', name: 'body', widget: 'markdown' }
-#     meta: { path: { widget: string, label: 'Path', index_file: 'index' } }
+  # Collection alternative pour création rapide avec sélection de dossier
+  - name: 'guide-quick'
+    label: 'Guide (Création rapide)'
+    label_singular: 'Guide'
+    folder: 'docs/guide'
+    create: true
+    slug: '{{slug}}'
+    editor:
+      preview: true
+    path: '{{folder}}/{{slug}}'
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Description', name: 'description', widget: 'string', required: false }
+      - { 
+          label: 'Dossier', 
+          name: 'folder', 
+          widget: 'select',
+          options: [
+            { label: 'Guide (racine)', value: '.' },
+            { label: 'Fonctionnalités communes', value: 'core' },
+            { label: 'Fonctionnalités communes - Activités', value: 'core/activities' },
+            { label: 'Fonctionnalités communes - Interventions', value: 'core/interventions' },
+            { label: 'Fonctionnalités communes - Matériels', value: 'core/materials' },
+            { label: 'Fonctionnalités communes - Autres', value: 'core/others' },
+            { label: 'Fonctionnalités communes - Fournisseurs', value: 'core/providers' },
+            { label: 'Fonctionnalités communes - Sites', value: 'core/sites' }
+          ]
+        }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
