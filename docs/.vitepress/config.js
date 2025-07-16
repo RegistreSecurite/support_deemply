@@ -1,6 +1,25 @@
 import { defineConfig } from 'vitepress';
 import { generateSidebar } from './sidebar-generator.js';
 
+// Définir le plugin avant de l'utiliser dans la configuration
+const injectTitlePlugin = {
+  name: 'inject-title-h1',
+  transform(code, id, options) {
+    // Ne traite que les fichiers .md avec frontmatter
+    if (!id.endsWith('.md') || !options?.frontmatter?.title) return
+
+    const title = options.frontmatter.title.trim()
+    const lines = code.split('\n')
+
+    // Si un titre H1 existe déjà, on ne fait rien
+    const alreadyHasH1 = lines.find((line) => line.trim().startsWith('# '))
+    if (alreadyHasH1) return
+
+    // Injecte le titre au début
+    return `# ${title}\n\n${code}`
+  }
+};
+
 export default defineConfig({
   title: 'Support Deemply',
   description: 'Documentation d\'aide pour Deemply',
@@ -29,20 +48,4 @@ export default defineConfig({
   cleanUrls: true,
 });
 
-const injectTitlePlugin = {
-    name: 'inject-title-h1',
-    transform(code, id, options) {
-      // Ne traite que les fichiers .md avec frontmatter
-      if (!id.endsWith('.md') || !options?.frontmatter?.title) return
-  
-      const title = options.frontmatter.title.trim()
-      const lines = code.split('\n')
-  
-      // Si un titre H1 existe déjà, on ne fait rien
-      const alreadyHasH1 = lines.find((line) => line.trim().startsWith('# '))
-      if (alreadyHasH1) return
-  
-      // Injecte le titre au début
-      return `# ${title}\n\n${code}`
-    }
-  }
+
