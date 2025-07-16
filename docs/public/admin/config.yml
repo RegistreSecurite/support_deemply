@@ -20,24 +20,8 @@ collections:
       preview: true  # ✅ Active l'aperçu Markdown dans le CMS
     # Configuration pour les collections imbriquées
     nested:
-      depth: 10  # Profondeur maximale des sous-dossiers
+      depth: 100  # Profondeur maximale des sous-dossiers
       summary: '{{title}}'
-      path: '{{dirname}}/{{filename}}'
-    fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Description', name: 'description', widget: 'string' }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
-
-  # Collection alternative avec sélection de dossier pour création rapide
-  - name: 'guide-quick'
-    label: 'Guide (Création rapide)'
-    folder: 'docs/guide'
-    create: true
-    slug: '{{slug}}'
-    editor:
-      preview: true
-    # Utilisation du path personnalisé avec sélection de dossier
-    path: '{{folder}}/{{slug}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Description', name: 'description', widget: 'string' }
@@ -57,3 +41,4 @@ collections:
           ]
         }
       - { label: 'Body', name: 'body', widget: 'markdown' }
+      meta: { path: { widget: string, label: 'Path', index_file: 'index' } }
