@@ -1,6 +1,6 @@
 ---
-title: C'est mon superguide
-description: mon superguide description
+title: C'est mon superguide 2
+description: mon superguide description 2
 folder: safetyRegister
 ---
-test
+test2
