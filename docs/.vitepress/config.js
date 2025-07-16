@@ -1,4 +1,4 @@
-import { defineConfig , Plugin } from 'vitepress';
+import { defineConfig } from 'vitepress';
 import { generateSidebar } from './sidebar-generator.js';
 
 export default defineConfig({
