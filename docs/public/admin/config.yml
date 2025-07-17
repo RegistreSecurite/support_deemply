@@ -13,16 +13,31 @@ public_folder: /images  # ✅ Là où elles seront visibles dans le site génér
 collections:
   - name: 'guide'
     label: 'Guide'
-    label_singular: 'Guide'
     folder: 'docs/guide'
     create: true
+    slug: '{{slug}}'
     editor:
-      preview: true
+      preview: true  # ✅ Active l’aperçu Markdown dans le CMS
     nested:
+      depth: 10  # Profondeur maximale des sous-dossiers
       summary: '{{title}}'
-      subfolders: true
-      depth: 100
+    path: '{{folder}}/{{slug}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Description', name: 'description', widget: 'string' }
-      - { label: 'Index file', name: 'index_file', widget: 'select', options: ['0', '1'] }
+      - { 
+          label: 'Dossier', 
+          name: 'folder', 
+          widget: 'select',
+          options: [
+            { label: 'Core', value: 'core' },
+            { label: 'Core - Activités', value: 'core/activities' },
+            { label: 'Core - Interventions', value: 'core/interventions' },
+            { label: 'Core - Matériels', value: 'core/materials' },
+            { label: 'Core - Autres', value: 'core/others' },
+            { label: 'Core - Fournisseurs', value: 'core/providers' },
+            { label: 'Core - Sites', value: 'core/sites' },
+            { label: 'Commun', value: 'common' }
+          ]
+        }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
