@@ -19,6 +19,8 @@ collections:
     editor:
       preview: true
     nested:
+      summary: '{{title}}'
+      subfolders: true
       depth: 100
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
