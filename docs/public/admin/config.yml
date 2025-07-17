@@ -23,6 +23,7 @@ collections:
     # Configuration pour les collections imbriquées
     nested:
       depth: 100
+      subfolders: true
       summary: '{{title}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
