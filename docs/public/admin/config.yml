@@ -11,22 +11,15 @@ media_folder: docs/public/images  # ✅ Là où les images sont stockées dans l
 public_folder: /images  # ✅ Là où elles seront visibles dans le site généré
 
 collections:
-  # Collection principale avec navigation hiérarchique
   - name: 'guide'
     label: 'Guide'
     label_singular: 'Guide'
     folder: 'docs/guide'
     create: true
-    slug: '{{slug}}'
     editor:
       preview: true
-    # Configuration pour les collections imbriquées
     nested:
       depth: 100
-      subfolders: true
-      summary: '{{title}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Description', name: 'description', widget: 'string', required: false }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
     meta: { path: { widget: string, label: 'Path', index_file: 'index' } }
