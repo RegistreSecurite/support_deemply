@@ -12,6 +12,33 @@ const sourceDir = path.join(__dirname, '..', 'docs', 'guide');
 // Dossier de destination pour les guides
 const destinationBase = path.join(__dirname, '..', 'docs', 'guide');
 
+// Fonction pour mapper les dossiers Decap CMS vers la structure hiérarchique
+function mapDecapFolderToHierarchy(folderName) {
+  // Pattern: [parent]_[child] -> [Parent]/[Child]
+  if (folderName.includes('_')) {
+    const [parent, child] = folderName.split('_');
+    
+    // Mapping spécifique pour les dossiers connus
+    const mappings = {
+      'fonctionnalités-communes': 'Fonctionnalités communes',
+      'activitiés': 'Activités',
+      'activities': 'Activités',
+      'interventions': 'Interventions',
+      'materials': 'Matériels',
+      'sites': 'Sites',
+      'providers': 'Fournisseurs',
+      'others': 'Autres'
+    };
+    
+    const mappedParent = mappings[parent] || parent;
+    const mappedChild = mappings[child] || child;
+    
+    return `${mappedParent}/${mappedChild}`;
+  }
+  
+  return folderName;
+}
+
 // Fonction pour chercher récursivement les fichiers .md dans tous les sous-dossiers
 function findMarkdownFiles(dir, files = []) {
   const items = fs.readdirSync(dir);
@@ -26,11 +53,14 @@ function findMarkdownFiles(dir, files = []) {
     } else if (item.endsWith('.md') && item !== 'index.md') {
       // Ajouter le fichier avec son chemin relatif
       const relativePath = path.relative(sourceDir, fullPath);
+      const directoryName = path.basename(path.dirname(fullPath));
+      
       files.push({
         name: item,
         fullPath: fullPath,
         relativePath: relativePath,
-        directory: path.dirname(fullPath)
+        directory: path.dirname(fullPath),
+        decapFolder: directoryName
       });
     }
   }
@@ -54,6 +84,7 @@ if (fichiers.length === 0) {
 
 for (const fichier of fichiers) {
   console.log(`🔍 Fichier trouvé: ${fichier.relativePath}`);
+  console.log(`📁 Dossier Decap: ${fichier.decapFolder}`);
   
   // Lire le contenu du fichier pour déterminer la catégorie
   const contenu = fs.readFileSync(fichier.fullPath, 'utf8');
@@ -61,31 +92,42 @@ for (const fichier of fichiers) {
   
   let destinationDir = destinationBase;
   let finalFileName = fichier.name;
+  let folderPath = '';
+  let title = '';
   
+  // Extraire le titre du frontmatter
   if (frontmatterMatch) {
     const frontmatter = frontmatterMatch[1];
-    
-    // Extraire le champ folder
-    const folderMatch = frontmatter.match(/folder:\s*["']?([^"'\n]+)["']?/);
-    // Extraire le titre
     const titleMatch = frontmatter.match(/title:\s*["']?([^"'\n]+)["']?/);
-    
-    console.log(`📁 Folder détecté: ${folderMatch ? folderMatch[1] : 'aucun'}`);
-    console.log(`📝 Titre détecté: ${titleMatch ? titleMatch[1] : 'aucun'}`);
-    
-    if (folderMatch && titleMatch) {
-      const folderPath = folderMatch[1].trim();
-      const title = titleMatch[1].trim();
-      
-      // Construire le chemin de destination basé sur le folder
-      destinationDir = path.join(destinationBase, folderPath, title);
-      // Renommer le fichier en index.md pour qu'il soit la page principale du dossier
-      finalFileName = 'index.md';
-    } else if (folderMatch) {
-      // Si on a seulement le folder, utiliser le folder path
-      const folderPath = folderMatch[1].trim();
-      destinationDir = path.join(destinationBase, folderPath);
+    if (titleMatch) {
+      title = titleMatch[1].trim();
     }
+  }
+  
+  // Priorité 1: Utiliser le frontmatter folder (plus fiable)
+  if (frontmatterMatch) {
+    const frontmatter = frontmatterMatch[1];
+    const folderMatch = frontmatter.match(/folder:\s*["']?([^"'\n]+)["']?/);
+    if (folderMatch) {
+      folderPath = folderMatch[1].trim();
+      console.log(`📁 Folder frontmatter: ${folderPath}`);
+    }
+  }
+  
+  // Priorité 2: Fallback sur le mapping du dossier Decap CMS si pas de frontmatter
+  if (!folderPath && fichier.decapFolder.includes('_')) {
+    folderPath = mapDecapFolderToHierarchy(fichier.decapFolder);
+    console.log(`🔄 Mapping Decap fallback: ${fichier.decapFolder} -> ${folderPath}`);
+  }
+  
+  console.log(`📝 Titre détecté: ${title || 'aucun'}`);
+  
+  // Construire le chemin de destination
+  if (folderPath && title) {
+    destinationDir = path.join(destinationBase, folderPath, title);
+    finalFileName = 'index.md';
+  } else if (folderPath) {
+    destinationDir = path.join(destinationBase, folderPath);
   }
   
   const destinationPath = path.join(destinationDir, finalFileName);

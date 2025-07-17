@@ -25,17 +25,18 @@ collections:
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Description', name: 'description', widget: 'string' }
+      - { label: "Ordre", name: "order", widget: "number", required: false }
       - { 
           label: 'Dossier', 
           name: 'folder', 
           widget: 'select',
           options: [
-            { label: 'Fonctionnalités communes - Activités', value: 'fonctionnalités communes/activities' },
-            { label: 'Fonctionnalités communes - Interventions', value: 'fonctionnalités communes/interventions' },
-            { label: 'Fonctionnalités communes - Matériels', value: 'fonctionnalités communes/materials' },
-            { label: 'Fonctionnalités communes - Autres', value: 'fonctionnalités communes/others' },
-            { label: 'Fonctionnalités communes - Fournisseurs', value: 'fonctionnalités communes/providers' },
-            { label: 'Fonctionnalités communes - Sites', value: 'fonctionnalités communes/sites' },
+            { label: 'Fonctionnalités communes - Activités', value: 'fonctionnalités communes/1 - Activités' },
+            { label: 'Fonctionnalités communes - Sites', value: 'fonctionnalités communes/2 - Sites' },
+            { label: 'Fonctionnalités communes - Matériels', value: 'fonctionnalités communes/3 - Matériels' },
+            { label: 'Fonctionnalités communes - Fournisseurs', value: 'fonctionnalités communes/4 - Fournisseurs' },
+            { label: 'Fonctionnalités communes - Interventions', value: 'fonctionnalités communes/5 - Interventions' },
+            { label: 'Fonctionnalités communes - Synthèses - Calendrier - Messages', value: 'fonctionnalités communes/6 - Synthèses - Calendrier - Messages' },
           ]
         }
       - { label: 'Body', name: 'body', widget: 'markdown' }
