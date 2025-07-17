@@ -30,14 +30,12 @@ collections:
           name: 'folder', 
           widget: 'select',
           options: [
-            { label: 'Core', value: 'core' },
-            { label: 'Core - Activités', value: 'core/activities' },
-            { label: 'Core - Interventions', value: 'core/interventions' },
-            { label: 'Core - Matériels', value: 'core/materials' },
-            { label: 'Core - Autres', value: 'core/others' },
-            { label: 'Core - Fournisseurs', value: 'core/providers' },
-            { label: 'Core - Sites', value: 'core/sites' },
-            { label: 'Commun', value: 'common' }
+            { label: 'Fonctionnalités communes - Activités', value: 'fonctionnalités communes/activities' },
+            { label: 'Fonctionnalités communes - Interventions', value: 'fonctionnalités communes/interventions' },
+            { label: 'Fonctionnalités communes - Matériels', value: 'fonctionnalités communes/materials' },
+            { label: 'Fonctionnalités communes - Autres', value: 'fonctionnalités communes/others' },
+            { label: 'Fonctionnalités communes - Fournisseurs', value: 'fonctionnalités communes/providers' },
+            { label: 'Fonctionnalités communes - Sites', value: 'fonctionnalités communes/sites' },
           ]
         }
       - { label: 'Body', name: 'body', widget: 'markdown' }
