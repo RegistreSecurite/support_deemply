@@ -21,9 +21,6 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Installer les dépendances
-        run: npm ci || npm install
-
       - name: Lancer le script de déplacement
         run: node script/organise-guide.js
 

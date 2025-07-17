@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Dossier source où Decap CMS crée les fichiers temporaires
-const sourceDir = path.join(__dirname, '..', '.netlify', 'cms', 'preview');
+const sourceDir = path.join(__dirname, '..', 'docs', 'guide','..');
 
 // Dossier de destination pour les guides
 const destinationBase = path.join(__dirname, '..', 'docs', 'guide');
@@ -18,7 +18,13 @@ if (!fs.existsSync(sourceDir)) {
   process.exit(0);
 }
 
-const fichiers = fs.readdirSync(sourceDir).filter(f => f.endsWith('.md'));
+// Chercher les fichiers .md directement dans le dossier guide (pas dans les sous-dossiers)
+const fichiers = fs.readdirSync(sourceDir)
+  .filter(f => f.endsWith('.md') && f !== 'index.md')
+  .filter(f => {
+    const filePath = path.join(sourceDir, f);
+    return fs.statSync(filePath).isFile();
+  });
 
 if (fichiers.length === 0) {
   console.log('Aucun guide détecté.');
