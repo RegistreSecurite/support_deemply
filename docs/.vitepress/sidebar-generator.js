@@ -1,133 +1,133 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import fs from 'fs'
+import path from 'path'
 
 /**
- * Génère la configuration de la sidebar en scannant le dossier guide
+ * Génère automatiquement la sidebar basée sur la structure des dossiers
+ * @param {string} docsPath - Chemin vers le dossier docs
  * @returns {Object} Configuration de la sidebar
  */
-export function generateSidebar() {
-  const guideDir = path.join(__dirname, '..', 'guide');
+export function generateSidebar(docsPath = './docs') {
+  const sidebar = {}
   
-  // Vérifier si le dossier guide existe
-  if (!fs.existsSync(guideDir)) {
-    console.warn('Le dossier guide n\'existe pas');
-    return {};
+  // Fonction récursive pour parcourir les dossiers
+  function buildSidebarFromDirectory(dirPath, basePath = '') {
+    const items = []
+    
+    try {
+      const entries = fs.readdirSync(dirPath, { withFileTypes: true })
+        .filter(entry => !entry.name.startsWith('.') && !entry.name.startsWith('_'))
+        .sort((a, b) => {
+          // Trier les dossiers avant les fichiers, puis alphabétiquement
+          if (a.isDirectory() && !b.isDirectory()) return -1
+          if (!a.isDirectory() && b.isDirectory()) return 1
+          return a.name.localeCompare(b.name)
+        })
+      
+      for (const entry of entries) {
+        const fullPath = path.join(dirPath, entry.name)
+        const relativePath = path.join(basePath, entry.name)
+        
+        if (entry.isDirectory()) {
+          // C'est un dossier
+          const children = buildSidebarFromDirectory(fullPath, relativePath)
+          
+          if (children.length > 0) {
+            items.push({
+              text: formatTitle(entry.name),
+              collapsed: false,
+              items: children
+            })
+          } else {
+            // Dossier vide, on l'ajoute quand même pour la structure
+            items.push({
+              text: formatTitle(entry.name),
+              collapsed: false,
+              items: []
+            })
+          }
+        } else if (entry.name.endsWith('.md')) {
+          // C'est un fichier markdown
+          const fileName = entry.name.replace('.md', '')
+          
+          // Ne pas inclure index.md dans la sidebar (il sera la page d'accueil)
+          if (fileName !== 'index') {
+            items.push({
+              text: formatTitle(fileName),
+              link: `/${relativePath.replace(/\\/g, '/').replace('.md', '')}`
+            })
+          }
+        }
+      }
+    } catch (error) {
+      console.warn(`Erreur lors de la lecture du dossier ${dirPath}:`, error.message)
+    }
+    
+    return items
   }
   
-  // Générer la structure hiérarchique de la sidebar
-  const sidebarStructure = generateSidebarStructure(guideDir);
+  // Fonction pour formater le titre
+  function formatTitle(name) {
+    // Supprimer les numéros de préfixe (ex: "1 - Activités" -> "Activités")
+    let title = name.replace(/^\d+\s*-\s*/, '')
+    
+    // Capitaliser la première lettre
+    title = title.charAt(0).toUpperCase() + title.slice(1)
+    
+    return title
+  }
   
-  return {
-    '/guide/': sidebarStructure
-  };
+  // Générer la sidebar pour le dossier guide
+  const guidePath = path.join(docsPath, 'guide')
+  if (fs.existsSync(guidePath)) {
+    sidebar['/guide/'] = buildSidebarFromDirectory(guidePath, 'guide')
+  }
+  
+  // Générer la sidebar pour le dossier release
+  const releasePath = path.join(docsPath, 'release')
+  if (fs.existsSync(releasePath)) {
+    sidebar['/release/'] = buildSidebarFromDirectory(releasePath, 'release')
+  }
+  
+  return sidebar
 }
 
 /**
- * Génère la structure hiérarchique de la sidebar
- * @param {string} rootDir - Chemin du dossier racine
- * @returns {Array} Structure hiérarchique de la sidebar
+ * Génère la navigation principale basée sur la structure des dossiers
+ * @param {string} docsPath - Chemin vers le dossier docs
+ * @returns {Array} Configuration de la navigation
  */
-function generateSidebarStructure(rootDir) {
-  const structure = [];
-  const rootDirName = path.basename(rootDir);
+export function generateNav(docsPath = './docs') {
+  const nav = [
+    { text: 'Accueil', link: '/' }
+  ]
   
-  // Lire le contenu du dossier
-  const items = fs.readdirSync(rootDir);
-  
-  // Traiter d'abord les fichiers du dossier courant
-  const files = items
-    .filter(item => {
-      const itemPath = path.join(rootDir, item);
-      return fs.statSync(itemPath).isFile() && path.extname(item) === '.md';
-    })
-    .sort((a, b) => {
-      // Mettre index.md en premier
-      if (a === 'index.md') return -1;
-      if (b === 'index.md') return 1;
-      return a.localeCompare(b);
-    });
-  
-  // Traiter les fichiers du dossier courant
-  const fileItems = files.map(file => {
-    const filePath = path.join(rootDir, file);
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
+  try {
+    const entries = fs.readdirSync(docsPath, { withFileTypes: true })
+      .filter(entry => entry.isDirectory() && !entry.name.startsWith('.') && !entry.name.startsWith('_'))
+      .sort((a, b) => a.name.localeCompare(b.name))
     
-    // Extraire le titre du fichier Markdown (première ligne commençant par #)
-    const titleMatch = fileContent.match(/^#\s+(.+)$/m);
-    const title = titleMatch ? titleMatch[1] : path.basename(file, '.md');
-    
-    // Convertir le chemin relatif en lien
-    const relativePath = path.relative(path.join(__dirname, '..'), filePath).replace(/\\/g, '/');
-    const link = '/' + relativePath.replace(/\.md$/, '');
-    
-    return { text: title, link };
-  });
-  
-  // Ajouter les fichiers au niveau racine de la structure
-  structure.push(...fileItems);
-  
-  // Traiter ensuite les sous-dossiers
-  const directories = items
-    .filter(item => {
-      const itemPath = path.join(rootDir, item);
-      return fs.statSync(itemPath).isDirectory();
-    })
-    .sort();
-  
-  // Traiter chaque sous-dossier
-  directories.forEach(dir => {
-    const dirPath = path.join(rootDir, dir);
-    
-    // Récupérer le titre du dossier (à partir d'un éventuel index.md ou du nom du dossier)
-    let dirTitle = formatDirName(dir);
-    const indexPath = path.join(dirPath, 'index.md');
-    
-    if (fs.existsSync(indexPath)) {
-      const indexContent = fs.readFileSync(indexPath, 'utf-8');
-      const titleMatch = indexContent.match(/^#\s+(.+)$/m);
-      if (titleMatch) {
-        dirTitle = titleMatch[1];
-      }
+    for (const entry of entries) {
+      if (entry.name === 'public') continue // Ignorer le dossier public
+      
+      nav.push({
+        text: formatNavTitle(entry.name),
+        link: `/${entry.name}/`
+      })
     }
-    
-    // Générer récursivement la structure pour ce sous-dossier
-    const children = generateSidebarStructure(dirPath);
-    
-    // Ajouter le sous-dossier à la structure s'il contient des éléments
-    if (children.length > 0) {
-      structure.push({
-        text: dirTitle,
-        collapsed: false,
-        items: children
-      });
-    }
-  });
+  } catch (error) {
+    console.warn(`Erreur lors de la génération de la navigation:`, error.message)
+  }
   
-  return structure;
+  return nav
 }
 
-/**
- * Formate le nom d'un dossier pour l'affichage
- * @param {string} dirName - Nom du dossier
- * @returns {string} Nom formaté
- */
-function formatDirName(dirName) {
-  // Mapping des noms de dossiers vers des noms plus lisibles
-  const dirNameMapping = {
-    'core': 'Fonctionnalités communes',
-    'activities': 'Activités',
-    'interventions': 'Interventions',
-    'materials': 'Matériels',
-    'others': 'Autres',
-    'providers': 'Fournisseurs',
-    'sites': 'Sites'
-  };
-  
-  return dirNameMapping[dirName] || dirName.charAt(0).toUpperCase() + dirName.slice(1);
+function formatNavTitle(name) {
+  // Capitaliser la première lettre
+  return name.charAt(0).toUpperCase() + name.slice(1)
 }
 
-
+// Export par défaut pour la compatibilité
+export default {
+  generateSidebar,
+  generateNav
+}

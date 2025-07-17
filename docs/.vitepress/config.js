@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress';
-import { generateSidebar } from './sidebar-generator.js';
+import { generateSidebar, generateNav } from './sidebar-generator.js';
 
 // Définir le plugin MarkdownIt pour injecter les titres H1
 function injectTitlePlugin(md) {
@@ -37,10 +37,7 @@ export default defineConfig({
   },
   themeConfig: {
     logo: '/images/logo.png',
-    nav: [
-      { text: 'Accueil', link: '/' },
-      { text: 'Guide', link: '/guide/' }
-    ],
+    nav: generateNav(),
     sidebar: generateSidebar(),
     socialLinks: [
       { icon: 'github', link: 'https://github.com/RegistreSecurite/support_deemply' }
