@@ -22,4 +22,4 @@ collections:
       depth: 100
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
-    meta: { path: { widget: string, label: 'Path', index_file: 'index' } }
+    meta: { path: { widget: string, label: 'Path', index_file: '0' } }
