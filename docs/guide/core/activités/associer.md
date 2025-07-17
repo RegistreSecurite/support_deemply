@@ -1,5 +1,5 @@
 ---
-title: Associer une activité à un site
+title: Associer une activité
 description: Vous retrouvez ici le guide de l'application Deemply
 
 ---
