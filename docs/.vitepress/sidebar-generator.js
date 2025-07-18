@@ -43,10 +43,29 @@ export function generateSidebar(docsPath = './docs') {
         const relativePath = path.join(basePath, entry.name)
         
         if (entry.isDirectory()) {
-          // Vérifier s'il existe un fichier .md avec le même nom
+          // Vérifier s'il existe un fichier .md avec le même nom dans le répertoire courant
           const hasMatchingMdFile = markdownFiles.has(entry.name)
           
-          if (!hasMatchingMdFile) {
+          // Vérifier s'il existe un fichier .md avec le même nom DANS le dossier
+          let hasMatchingMdFileInside = false
+          try {
+            const insideEntries = fs.readdirSync(fullPath, { withFileTypes: true })
+            hasMatchingMdFileInside = insideEntries.some(insideEntry => 
+              insideEntry.isFile() && 
+              insideEntry.name === `${entry.name}.md`
+            )
+          } catch (error) {
+            // Ignore les erreurs de lecture du dossier
+          }
+          
+          if (hasMatchingMdFileInside) {
+            // Le dossier contient un fichier .md avec le même nom, afficher directement le fichier
+            const mdFilePath = path.join(relativePath, `${entry.name}.md`)
+            items.push({
+              text: formatTitle(entry.name),
+              link: `/${mdFilePath.replace(/\\/g, '/').replace('.md', '')}`
+            })
+          } else if (!hasMatchingMdFile) {
             // Pas de fichier .md correspondant, traiter le dossier normalement
             const children = buildSidebarFromDirectory(fullPath, relativePath)
             
