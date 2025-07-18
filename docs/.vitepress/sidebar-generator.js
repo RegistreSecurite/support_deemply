@@ -17,9 +17,29 @@ export function generateSidebar(docsPath = './docs') {
       const entries = fs.readdirSync(dirPath, { withFileTypes: true })
         .filter(entry => !entry.name.startsWith('.') && !entry.name.startsWith('_'))
         .sort((a, b) => {
-          // Trier les dossiers avant les fichiers, puis alphabétiquement
+          // Trier les dossiers avant les fichiers, puis par ordre numérique des préfixes
           if (a.isDirectory() && !b.isDirectory()) return -1
           if (!a.isDirectory() && b.isDirectory()) return 1
+          
+          // Extraire les numéros de préfixe (ex: "1 - Activités" -> 1)
+          const getPrefix = (name) => {
+            const match = name.match(/^(\d+)\s*-\s*/)
+            return match ? parseInt(match[1], 10) : 999999 // Les fichiers sans préfixe à la fin
+          }
+          
+          const prefixA = getPrefix(a.name)
+          const prefixB = getPrefix(b.name)
+          
+          // Si les deux ont des préfixes numériques, trier par numéro
+          if (prefixA !== 999999 && prefixB !== 999999) {
+            return prefixA - prefixB
+          }
+          
+          // Si un seul a un préfixe, celui avec préfixe vient en premier
+          if (prefixA !== 999999 && prefixB === 999999) return -1
+          if (prefixA === 999999 && prefixB !== 999999) return 1
+          
+          // Si aucun n'a de préfixe, trier alphabétiquement
           return a.name.localeCompare(b.name)
         })
       
