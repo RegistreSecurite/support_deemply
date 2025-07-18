@@ -31,12 +31,85 @@ collections:
           name: 'folder', 
           widget: 'select',
           options: [
-            { label: 'Fonctionnalités communes - Activités', value: 'fonctionnalités communes/1 - Activités' },
-            { label: 'Fonctionnalités communes - Sites', value: 'fonctionnalités communes/2 - Sites' },
-            { label: 'Fonctionnalités communes - Matériels', value: 'fonctionnalités communes/3 - Matériels' },
-            { label: 'Fonctionnalités communes - Fournisseurs', value: 'fonctionnalités communes/4 - Fournisseurs' },
-            { label: 'Fonctionnalités communes - Interventions', value: 'fonctionnalités communes/5 - Interventions' },
-            { label: 'Fonctionnalités communes - Synthèses - Calendrier - Messages', value: 'fonctionnalités communes/6 - Synthèses - Calendrier - Messages' },
+            # Fonctionnalités générales
+            { label: 'Fonctionnalités générales', value: '1 - Fonctionnalités générales' },
+            
+            # Fonctionnalités communes
+            { label: 'Fonctionnalités communes', value: '2 - Fonctionnalités communes' },
+            { label: 'Fonctionnalités communes - Activités', value: '2 - Fonctionnalités communes/1 - Activités' },
+            { label: 'Fonctionnalités communes - Sites', value: '2 - Fonctionnalités communes/2 - Sites' },
+            { label: 'Fonctionnalités communes - Matériels', value: '2 - Fonctionnalités communes/3 - Matériels' },
+            { label: 'Fonctionnalités communes - Prestataires', value: '2 - Fonctionnalités communes/4 - Prestataires' },
+            { label: 'Fonctionnalités communes - Interventions', value: '2 - Fonctionnalités communes/5 - Interventions' },
+            { label: 'Fonctionnalités communes - Synthèses - Calendrier - Messages', value: '2 - Fonctionnalités communes/6 - Synthèses - Calendrier - Messages' },
+            
+            # Registre de sécurité
+            { label: 'Registre de sécurité', value: '3 - Registre de sécurité' },
+            { label: 'Registre de sécurité - Commissions de sécurité', value: '3 - Registre de sécurité/1 - Commissions de sécurité' },
+            { label: 'Registre de sécurité - Prescriptions', value: '3 - Registre de sécurité/2 - Prescriptions' },
+            { label: 'Registre de sécurité - Demandes de devis et d\'intervention', value: '3 - Registre de sécurité/3 - Demandes de devis et d\'intervention' },
+            { label: 'Registre de sécurité - Interventions du registre de sécurité', value: '3 - Registre de sécurité/4 - Interventions du registre de sécurité' },
+            { label: 'Registre de sécurité - Observations', value: '3 - Registre de sécurité/5 - Observations' },
+            { label: 'Registre de sécurité - Formations et personnels', value: '3 - Registre de sécurité/6 - Formations et personnels' },
+            { label: 'Registre de sécurité - Génération des documents', value: '3 - Registre de sécurité/7 - Génération des documents' },
+            
+            # Gestion du bâtiment
+            { label: 'Gestion du bâtiment', value: '4 - Gestion du bâtiment' },
+            { label: 'Gestion du bâtiment - Anomalies', value: '4 - Gestion du bâtiment/1 - Anomalies' },
+            { label: 'Gestion du bâtiment - Demandes d\'intervention ou de devis', value: '4 - Gestion du bâtiment/2 - Demandes d\'intervention ou de devis' },
+            { label: 'Gestion du bâtiment - Interventions de la gestion du bâtiment', value: '4 - Gestion du bâtiment/3 - Interventions de la gestion du bâtiment' },
+            { label: 'Gestion du bâtiment - Génération des documents', value: '4 - Gestion du bâtiment/4 - Génération des documents' },
+            { label: 'Gestion du bâtiment - Les modèles', value: '4 - Gestion du bâtiment/5 - Les modèles' },
+            { label: 'Gestion du bâtiment - Les travaux', value: '4 - Gestion du bâtiment/6 - Les travaux' },
+            
+            # Registre d'accessibilité
+            { label: 'Registre d\'accessibilité', value: '5 - Registre d\'accessibilité' },
+            { label: 'Registre d\'accessibilité - Les Modèles', value: '5 - Registre d\'accessibilité/1 - Les Modèles' },
+            { label: 'Registre d\'accessibilité - Les registres d\'accessibilité', value: '5 - Registre d\'accessibilité/2 - Les registres d\'accessibilité' },
+            { label: 'Registre d\'accessibilité - Les documents', value: '5 - Registre d\'accessibilité/3 - Les documents' },
+            
+            # Plan de prévention
+            { label: 'Plan de prévention', value: '6 - Plan de prévention' },
+            { label: 'Plan de prévention - Les modèles', value: '6 - Plan de prévention/1 - Les modèles' },
+            { label: 'Plan de prévention - Les plans de prévention', value: '6 - Plan de prévention/2 - Les plans de prévention' },
+            
+            # Permis de feu
+            { label: 'Permis de feu', value: '7 - Permis de feu' },
+            { label: 'Permis de feu - Les modèles', value: '7 - Permis de feu/1 - Les modèles' },
+            { label: 'Permis de feu - Les permis de feu', value: '7 - Permis de feu/2 - Les permis de feu' },
+            
+            # Entrées Sorties
+            { label: 'Entrées Sorties', value: '8 - Entrées Sorties' },
+            { label: 'Entrées Sorties - Les modèles', value: '8 - Entrées Sorties/1 - Les modèles' },
+            { label: 'Entrées Sorties - Les entrées sorties', value: '8 - Entrées Sorties/2 - Les entrées sorties' },
+            
+            # DUERP
+            { label: 'DUERP', value: '9 - DUERP' },
+            { label: 'DUERP - Les modèles', value: '9 - DUERP/1 - Les modèles' },
+            { label: 'DUERP - Les DUERP', value: '9 - DUERP/2 - Les DUERP' },
+            
+            # Carnet sanitaire
+            { label: 'Carnet sanitaire', value: '10 - Carnet sanitaire' },
+            { label: 'Carnet sanitaire - Paramètres du carnet sanitaire', value: '10 - Carnet sanitaire/1 - Paramètres du carnet sanitaire' },
+            { label: 'Carnet sanitaire - Les relevés du carnet sanitaire', value: '10 - Carnet sanitaire/2 - Les relevés du carnet sanitaire' },
+            
+            # Formulaire
+            { label: 'Formulaire', value: '11 - Formulaire' },
+            
+            # Applications mobile
+            { label: 'Applications mobile', value: '12 - Applications mobile' },
+            { label: 'Applications mobile - Installation et fonctionnalités principales', value: '12 - Applications mobile/1 - Installation et fonctionnalités principales' },
+            { label: 'Applications mobile - Les interventions', value: '12 - Applications mobile/2 - Les interventions' },
+            { label: 'Applications mobile - Commission de sécurité', value: '12 - Applications mobile/3 - Commission de sécurité' },
+            { label: 'Applications mobile - Les anomalies', value: '12 - Applications mobile/4 - Les anomalies' },
+            { label: 'Applications mobile - Le matériel', value: '12 - Applications mobile/5 - Le matériel' },
+            { label: 'Applications mobile - Module plan de prévention', value: '12 - Applications mobile/6 - Module plan de prévention' },
+            { label: 'Applications mobile - Module permis de feu', value: '12 - Applications mobile/7 - Module permis de feu' },
+            { label: 'Applications mobile - Module entrées - sorties', value: '12 - Applications mobile/8 - Module entrées - sorties' },
+            { label: 'Applications mobile - Module carnet sanitaire', value: '12 - Applications mobile/9 - Module carnet sanitaire' },
+            
+            # Prestataires
+            { label: 'Prestataires', value: '13 - Prestataires' },
           ]
         }
       - { label: 'Body', name: 'body', widget: 'markdown' }

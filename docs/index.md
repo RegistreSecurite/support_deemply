@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "Deemply test"
+  name: "Deemply"
   text: "Centre d'aide"
   tagline: Apprenez à utiliser notre application avec nos guides détaillés
   actions:
