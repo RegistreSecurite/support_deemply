@@ -125,7 +125,7 @@ for (const fichier of fichiers) {
   // Construire le chemin de destination
   if (folderPath && title) {
     destinationDir = path.join(destinationBase, folderPath, title);
-    finalFileName = 'index.md';
+    finalFileName = `${title}.md`;
   } else if (folderPath) {
     destinationDir = path.join(destinationBase, folderPath);
   }
