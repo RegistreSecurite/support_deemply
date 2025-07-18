@@ -23,28 +23,49 @@ export function generateSidebar(docsPath = './docs') {
           return a.name.localeCompare(b.name)
         })
       
+      // Créer des maps pour détecter les conflits nom de dossier/fichier
+      const directories = new Map()
+      const markdownFiles = new Map()
+      
+      // Première passe : cataloguer les dossiers et fichiers .md
+      for (const entry of entries) {
+        if (entry.isDirectory()) {
+          directories.set(entry.name, entry)
+        } else if (entry.name.endsWith('.md')) {
+          const fileName = entry.name.replace('.md', '')
+          markdownFiles.set(fileName, entry)
+        }
+      }
+      
+      // Deuxième passe : traiter les entrées en évitant les doublons
       for (const entry of entries) {
         const fullPath = path.join(dirPath, entry.name)
         const relativePath = path.join(basePath, entry.name)
         
         if (entry.isDirectory()) {
-          // C'est un dossier
-          const children = buildSidebarFromDirectory(fullPath, relativePath)
+          // Vérifier s'il existe un fichier .md avec le même nom
+          const hasMatchingMdFile = markdownFiles.has(entry.name)
           
-          if (children.length > 0) {
-            items.push({
-              text: formatTitle(entry.name),
-              collapsed: false,
-              items: children
-            })
-          } else {
-            // Dossier vide, on l'ajoute quand même pour la structure
-            items.push({
-              text: formatTitle(entry.name),
-              collapsed: false,
-              items: []
-            })
+          if (!hasMatchingMdFile) {
+            // Pas de fichier .md correspondant, traiter le dossier normalement
+            const children = buildSidebarFromDirectory(fullPath, relativePath)
+            
+            if (children.length > 0) {
+              items.push({
+                text: formatTitle(entry.name),
+                collapsed: false,
+                items: children
+              })
+            } else {
+              // Dossier vide, on l'ajoute quand même pour la structure
+              items.push({
+                text: formatTitle(entry.name),
+                collapsed: false,
+                items: []
+              })
+            }
           }
+          // Si hasMatchingMdFile est true, on ignore le dossier
         } else if (entry.name.endsWith('.md')) {
           // C'est un fichier markdown
           const fileName = entry.name.replace('.md', '')
