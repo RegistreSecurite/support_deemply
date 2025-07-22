@@ -126,14 +126,14 @@ for (const fichier of fichiers) {
   if (folderPath && title) {
     // Nouvelle logique: créer un dossier avec le même nom que le fichier dans le chemin du folder
     destinationDir = path.join(destinationBase, folderPath, fichier.name.replace('.md', ''));
-    finalFileName = 'index.md';
+    finalFileName = `${title}.md`;
   } else if (folderPath) {
     destinationDir = path.join(destinationBase, folderPath, fichier.name.replace('.md', ''));
-    finalFileName = 'index.md';
+    finalFileName = `${title}.md`;
   } else if (title) {
     // Fallback si pas de folder mais un titre
     destinationDir = path.join(destinationBase, title);
-    finalFileName = 'index.md';
+    finalFileName = `${title}.md`;
   }
   
   const destinationPath = path.join(destinationDir, finalFileName);
