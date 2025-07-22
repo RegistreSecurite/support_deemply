@@ -103,9 +103,37 @@ export function generateSidebar(docsPath = './docs') {
             // Ignore les erreurs de lecture du dossier
           }
           
-          // Si le dossier contient un fichier avec le même nom (normalisé), on ignore le dossier
+          // Si le dossier contient un fichier avec le même nom (normalisé), on ignore le dossier mais on ajoute le fichier
           if (hasFileWithSameNameAsDir) {
             console.log(`Ignoring directory ${entry.name} as it contains a file with the same normalized name`)
+            
+            // Trouver le fichier correspondant et l'ajouter directement à ce niveau
+            try {
+              const insideEntries = fs.readdirSync(fullPath, { withFileTypes: true })
+              for (const insideEntry of insideEntries) {
+                if (insideEntry.isFile() && insideEntry.name.endsWith('.md')) {
+                  const fileName = insideEntry.name.replace('.md', '')
+                  const normalizedFileName = normalizeName(fileName)
+                  const normalizedDirName = normalizeName(entry.name)
+                  
+                  if (normalizedFileName === normalizedDirName) {
+                    // Ajouter le fichier directement à ce niveau
+                    const mdFilePath = path.join(relativePath, insideEntry.name)
+                    const fullMdPath = path.join(fullPath, insideEntry.name)
+                    const titleFromMd = extractTitleFromMarkdown(fullMdPath)
+                    
+                    items.push({
+                      text: titleFromMd || formatTitle(fileName, dirPath),
+                      link: `/${mdFilePath.replace(/\\/g, '/').replace('.md', '')}`
+                    })
+                    break
+                  }
+                }
+              }
+            } catch (error) {
+              console.warn(`Erreur lors de la lecture du dossier ${fullPath}:`, error.message)
+            }
+            
             continue
           }
           
