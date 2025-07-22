@@ -39,8 +39,42 @@ function mapDecapFolderToHierarchy(folderName) {
   return folderName;
 }
 
-// Fonction pour chercher récursivement les fichiers .md dans tous les sous-dossiers
-function findMarkdownFiles(dir, files = []) {
+// Fonction pour mettre à jour les références d'images dans les fichiers markdown
+function updateImageReferencesInMarkdownFiles(files, oldPath, newPath) {
+  // Normaliser les chemins pour les comparaisons
+  const normalizedOldPath = oldPath.replace(/\\/g, '/');
+  
+  for (const file of files) {
+    try {
+      const content = fs.readFileSync(file.fullPath, 'utf8');
+      
+      // Rechercher les références d'images dans le markdown
+      // Format: ![alt](chemin/vers/image.jpg) ou <img src="chemin/vers/image.jpg">
+      const markdownImgRegex = new RegExp(`!\\[([^\\]]*)\\]\\(([^\\)]*(${normalizedOldPath})[^\\)]*)\\)`, 'g');
+      const htmlImgRegex = new RegExp(`<img[^>]*src=["']([^"']*${normalizedOldPath}[^"']*)`, 'g');
+      
+      // Remplacer les références
+      let updatedContent = content.replace(markdownImgRegex, (match, alt, path) => {
+        return `![${alt}](${newPath})`;
+      });
+      
+      updatedContent = updatedContent.replace(htmlImgRegex, (match, path) => {
+        return match.replace(path, newPath);
+      });
+      
+      // Écrire le contenu mis à jour si des modifications ont été faites
+      if (content !== updatedContent) {
+        fs.writeFileSync(file.fullPath, updatedContent, 'utf8');
+        console.log(`✅ Références d'images mises à jour dans ${file.relativePath}`);
+      }
+    } catch (error) {
+      console.error(`❌ Erreur lors de la mise à jour des références d'images dans ${file.relativePath}:`, error.message);
+    }
+  }
+}
+
+// Fonction pour chercher récursivement les fichiers .md et les images dans tous les sous-dossiers
+function findMarkdownFiles(dir, files = [], images = []) {
   const items = fs.readdirSync(dir);
   
   for (const item of items) {
@@ -49,7 +83,7 @@ function findMarkdownFiles(dir, files = []) {
     
     if (stat.isDirectory()) {
       // Chercher récursivement dans les sous-dossiers
-      findMarkdownFiles(fullPath, files);
+      findMarkdownFiles(fullPath, files, images);
     } else if (item.endsWith('.md') && item !== 'index.md') {
       // Ajouter le fichier avec son chemin relatif
       const relativePath = path.relative(sourceDir, fullPath);
@@ -62,10 +96,19 @@ function findMarkdownFiles(dir, files = []) {
         directory: path.dirname(fullPath),
         decapFolder: directoryName
       });
+    } else if (/\.(png|jpg|jpeg|gif|svg|webp)$/i.test(item)) {
+      // Ajouter l'image à la liste des images à traiter
+      const relativePath = path.relative(sourceDir, fullPath);
+      images.push({
+        name: item,
+        fullPath: fullPath,
+        relativePath: relativePath,
+        directory: path.dirname(fullPath)
+      });
     }
   }
   
-  return files;
+  return { files, images };
 }
 
 // Vérifier si le dossier source existe
@@ -74,12 +117,51 @@ if (!fs.existsSync(sourceDir)) {
   process.exit(0);
 }
 
-// Chercher tous les fichiers .md dans docs/guide et ses sous-dossiers
-const fichiers = findMarkdownFiles(sourceDir);
+// Dossier public pour les images
+const publicImagesDir = path.join(__dirname, '..', 'docs', 'public', 'images');
+
+// Créer le dossier public/images s'il n'existe pas
+if (!fs.existsSync(publicImagesDir)) {
+  fs.mkdirSync(publicImagesDir, { recursive: true });
+  console.log(`✅ Dossier public/images créé: ${publicImagesDir}`);
+}
+
+// Chercher tous les fichiers .md et images dans docs/guide et ses sous-dossiers
+const { files: fichiers, images } = findMarkdownFiles(sourceDir);
 
 if (fichiers.length === 0) {
   console.log('Aucun guide détecté.');
-  process.exit(0);
+}
+
+if (images.length > 0) {
+  console.log(`📷 ${images.length} images détectées à déplacer vers public/images`);
+  
+  // Traiter chaque image
+  for (const image of images) {
+    // Générer un nom de fichier unique pour éviter les collisions
+    const uniquePrefix = Date.now().toString(36) + Math.random().toString(36).substring(2, 5);
+    const imageExt = path.extname(image.name);
+    const imageName = path.basename(image.name, imageExt);
+    const uniqueImageName = `${imageName}-${uniquePrefix}${imageExt}`;
+    
+    // Chemin de destination dans public/images
+    const imageDestination = path.join(publicImagesDir, uniqueImageName);
+    
+    try {
+      // Copier l'image vers public/images
+      fs.copyFileSync(image.fullPath, imageDestination);
+      console.log(`✅ Image copiée: ${image.name} -> public/images/${uniqueImageName}`);
+      
+      // Mettre à jour les références dans les fichiers markdown
+      updateImageReferencesInMarkdownFiles(fichiers, image.relativePath, `/images/${uniqueImageName}`);
+      
+      // Supprimer l'image originale
+      fs.unlinkSync(image.fullPath);
+      console.log(`🚮 Image originale supprimée: ${image.fullPath}`);
+    } catch (error) {
+      console.error(`❌ Erreur lors du traitement de l'image ${image.name}:`, error.message);
+    }
+  }
 }
 
 for (const fichier of fichiers) {
