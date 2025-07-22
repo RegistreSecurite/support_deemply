@@ -47,6 +47,11 @@ export function generateSidebar(docsPath = './docs') {
       const directories = new Map()
       const markdownFiles = new Map()
       
+      // Fonction pour normaliser un nom (remplacer les espaces par des tirets)
+      const normalizeName = (name) => {
+        return name.toLowerCase().replace(/\s+/g, '-')
+      }
+      
       // Première passe : cataloguer les dossiers et fichiers .md
       for (const entry of entries) {
         if (entry.isDirectory()) {
@@ -61,10 +66,16 @@ export function generateSidebar(docsPath = './docs') {
       for (const entry of entries) {
         const fullPath = path.join(dirPath, entry.name)
         const relativePath = path.join(basePath, entry.name)
+        const parentDirName = path.basename(dirPath)
         
         if (entry.isDirectory()) {
           // Vérifier s'il existe un fichier .md avec le même nom dans le répertoire courant
           const hasMatchingMdFile = markdownFiles.has(entry.name)
+          
+          // Vérifier si le nom du dossier correspond au dossier parent (avec espaces remplacés par des tirets)
+          const normalizedDirName = normalizeName(entry.name)
+          const normalizedParentName = normalizeName(parentDirName)
+          const isSameAsParent = normalizedDirName === normalizedParentName
           
           // Vérifier s'il existe un fichier .md avec le même nom DANS le dossier
           let hasMatchingMdFileInside = false
@@ -76,6 +87,12 @@ export function generateSidebar(docsPath = './docs') {
             )
           } catch (error) {
             // Ignore les erreurs de lecture du dossier
+          }
+          
+          // Si le dossier a le même nom que son parent (avec espaces remplacés par des tirets), on l'ignore
+          if (isSameAsParent) {
+            console.log(`Ignoring directory ${entry.name} as it matches parent directory ${parentDirName}`)
+            continue
           }
           
           if (hasMatchingMdFileInside) {
@@ -115,9 +132,21 @@ export function generateSidebar(docsPath = './docs') {
           // Ne pas inclure index.md dans la sidebar (il sera la page d'accueil)
           if (fileName !== 'index') {
             const titleFromMd = extractTitleFromMarkdown(fullPath)
+            
+            // Vérifier si le nom du fichier correspond au dossier parent (avec espaces remplacés par des tirets)
+            const normalizedFileName = normalizeName(fileName)
+            const normalizedParentName = normalizeName(parentDirName)
+            const isSameAsParent = normalizedFileName === normalizedParentName
+            
+            // Si c'est le cas, on lui donne une priorité spéciale dans la sidebar
+            if (isSameAsParent) {
+              console.log(`File ${fileName} matches parent directory ${parentDirName}, giving special treatment`)
+            }
+            
             items.push({
               text: titleFromMd || formatTitle(fileName, dirPath),
-              link: `/${relativePath.replace(/\\/g, '/').replace('.md', '')}`
+              link: `/${relativePath.replace(/\\/g, '/').replace('.md', '')}`,
+              isParentFile: isSameAsParent
             })
           }
         }
