@@ -24,6 +24,8 @@ collections:
     path: '{{folder}}/{{slug}}'
     identifier_field: title
     summary: '{{title}} - {{folder}}'
+    # Filtre pour exclure les fichiers index.md
+    filter: {field: "slug", value: "index", negate: true}
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Description', name: 'description', widget: 'string' }
