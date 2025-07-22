@@ -1,33 +1,33 @@
-name: Organiser un nouveau guide Decap CMS
+# name: Organiser un nouveau guide Decap CMS
 
-on:
-  push:
-    branches:
-      - 'cms/**'
+# on:
+#   push:
+#     branches:
+#       - 'cms/**'
 
-permissions:
-  contents: write
+# permissions:
+#   contents: write
 
-jobs:
-  move-markdown:
-    runs-on: ubuntu-latest
+# jobs:
+#   move-markdown:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '22'
 
-      - name: Lancer le script de déplacement
-        run: node script/organise-guide.js
+#       - name: Lancer le script de déplacement
+#         run: node script/organise-guide.js
 
-      - name: Commit et push les changements
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Réorganisation auto du post markdown" || echo "Pas de changements"
-          git push
+#       - name: Commit et push les changements
+#         run: |
+#           git config user.name "github-actions[bot]"
+#           git config user.email "github-actions[bot]@users.noreply.github.com"
+#           git add .
+#           git commit -m "Réorganisation auto du post markdown" || echo "Pas de changements"
+#           git push
