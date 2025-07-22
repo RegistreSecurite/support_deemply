@@ -1,6 +1,5 @@
 import fs from 'fs'
 import path from 'path'
-import matter from 'gray-matter'
 
 /**
  * Génère automatiquement la sidebar basée sur la structure des dossiers
@@ -139,9 +138,16 @@ export function generateSidebar(docsPath = './docs') {
     try {
       if (fs.existsSync(filePath)) {
         const fileContent = fs.readFileSync(filePath, 'utf8')
-        const { data } = matter(fileContent)
-        if (data && data.title) {
-          return data.title
+        
+        // Vérifier si le fichier a un frontmatter (entre --- et ---)
+        const frontmatterMatch = fileContent.match(/^---([\s\S]*?)---/)
+        
+        if (frontmatterMatch && frontmatterMatch[1]) {
+          // Extraire le titre du frontmatter
+          const titleMatch = frontmatterMatch[1].match(/title:\s*([^\n]+)/)
+          if (titleMatch && titleMatch[1]) {
+            return titleMatch[1].trim()
+          }
         }
       }
       return null
