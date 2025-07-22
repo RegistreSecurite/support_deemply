@@ -79,19 +79,33 @@ export function generateSidebar(docsPath = './docs') {
           
           // Vérifier s'il existe un fichier .md avec le même nom DANS le dossier
           let hasMatchingMdFileInside = false
+          let hasFileWithSameNameAsDir = false
           try {
             const insideEntries = fs.readdirSync(fullPath, { withFileTypes: true })
+            
+            // Vérifie si le dossier contient un fichier .md avec exactement le même nom
             hasMatchingMdFileInside = insideEntries.some(insideEntry => 
               insideEntry.isFile() && 
               insideEntry.name === `${entry.name}.md`
             )
+            
+            // Vérifie si le dossier contient un fichier .md dont le nom normalisé correspond au nom normalisé du dossier
+            hasFileWithSameNameAsDir = insideEntries.some(insideEntry => {
+              if (!insideEntry.isFile() || !insideEntry.name.endsWith('.md')) {
+                return false
+              }
+              const fileName = insideEntry.name.replace('.md', '')
+              const normalizedFileName = normalizeName(fileName)
+              const normalizedDirName = normalizeName(entry.name)
+              return normalizedFileName === normalizedDirName
+            })
           } catch (error) {
             // Ignore les erreurs de lecture du dossier
           }
           
-          // Si le dossier a le même nom que son parent (avec espaces remplacés par des tirets), on l'ignore
-          if (isSameAsParent) {
-            console.log(`Ignoring directory ${entry.name} as it matches parent directory ${parentDirName}`)
+          // Si le dossier contient un fichier avec le même nom (normalisé), on ignore le dossier
+          if (hasFileWithSameNameAsDir) {
+            console.log(`Ignoring directory ${entry.name} as it contains a file with the same normalized name`)
             continue
           }
           
