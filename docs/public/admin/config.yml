@@ -22,8 +22,6 @@ collections:
       depth: 10  # Profondeur maximale des sous-dossiers
       summary: '{{title}}'
     path: '{{folder}}/{{slug}}'
-    identifier_field: title
-    summary: '{{title}} - {{folder}}'
     # Configuration pour différencier les fichiers index des autres
     view_filters:
       - label: "Fichiers de contenu"
