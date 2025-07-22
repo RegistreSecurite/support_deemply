@@ -36,7 +36,7 @@ export default defineConfig({
     }
   },
   themeConfig: {
-    logo: '/images/logo.png',
+    logo: '',
     nav: generateNav(),
     sidebar: generateSidebar(),
     socialLinks: [
