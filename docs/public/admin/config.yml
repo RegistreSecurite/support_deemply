@@ -24,12 +24,19 @@ collections:
     path: '{{folder}}/{{slug}}'
     identifier_field: title
     summary: '{{title}} - {{folder}}'
-    # Filtre pour exclure les fichiers index.md
-    filter: {field: "slug", value: "index", negate: true}
+    # Configuration pour différencier les fichiers index des autres
+    view_filters:
+      - label: "Fichiers de contenu"
+        field: slug
+        pattern: "^(?!index$).*"
+      - label: "Fichiers index (navigation)"
+        field: slug
+        pattern: "^index$"
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Description', name: 'description', widget: 'string' }
       - { label: "Ordre", name: "order", widget: "number", required: false }
+      - { label: 'Type de fichier', name: 'file_type', widget: 'hidden', default: 'content' }
       - { 
           label: 'Dossier', 
           name: 'folder', 
