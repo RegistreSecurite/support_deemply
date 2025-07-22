@@ -6,9 +6,6 @@ backend:
   branch: main
   base_url: https://support.deemply.com  # ✅ Ton serveur PHP d’OAuth
   auth_endpoint: "admin-oauth/public/auth"  # ✅ Important, évite /auth/auth
-  # Configuration pour éviter les noms de branches invalides
-  squash_merges: true
-  use_graphql: true
 
 media_folder: docs/public/images  # ✅ Là où les images sont stockées dans le repo
 public_folder: /images  # ✅ Là où elles seront visibles dans le site généré
@@ -25,7 +22,6 @@ collections:
       depth: 10  # Profondeur maximale des sous-dossiers
       summary: '{{title}}'
     path: '{{folder}}/{{slug}}'
-    # Configuration pour éviter les noms de branches invalides
     identifier_field: title
     summary: '{{title}} - {{folder}}'
     fields:
