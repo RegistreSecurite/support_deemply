@@ -47,7 +47,7 @@ collections:
             { label: 'Registre de sécurité', value: '3 - Registre de sécurité' },
             { label: 'Registre de sécurité - Commissions de sécurité', value: '3 - Registre de sécurité/1 - Commissions de sécurité' },
             { label: 'Registre de sécurité - Prescriptions', value: '3 - Registre de sécurité/2 - Prescriptions' },
-            { label: 'Registre de sécurité - Demandes de devis et d\'intervention', value: '3 - Registre de sécurité/3 - Demandes de devis et d\'intervention' },
+            { label: "Registre de sécurité - Demandes de devis et d'intervention", value: "3 - Registre de sécurité/3 - Demandes de devis et d'intervention" },
             { label: 'Registre de sécurité - Interventions du registre de sécurité', value: '3 - Registre de sécurité/4 - Interventions du registre de sécurité' },
             { label: 'Registre de sécurité - Observations', value: '3 - Registre de sécurité/5 - Observations' },
             { label: 'Registre de sécurité - Formations et personnels', value: '3 - Registre de sécurité/6 - Formations et personnels' },
@@ -56,17 +56,17 @@ collections:
             # Gestion du bâtiment
             { label: 'Gestion du bâtiment', value: '4 - Gestion du bâtiment' },
             { label: 'Gestion du bâtiment - Anomalies', value: '4 - Gestion du bâtiment/1 - Anomalies' },
-            { label: 'Gestion du bâtiment - Demandes d\'intervention ou de devis', value: '4 - Gestion du bâtiment/2 - Demandes d\'intervention ou de devis' },
+            { label: "Gestion du bâtiment - Demandes d'intervention ou de devis", value: "4 - Gestion du bâtiment/2 - Demandes d'intervention ou de devis" },
             { label: 'Gestion du bâtiment - Interventions de la gestion du bâtiment', value: '4 - Gestion du bâtiment/3 - Interventions de la gestion du bâtiment' },
             { label: 'Gestion du bâtiment - Génération des documents', value: '4 - Gestion du bâtiment/4 - Génération des documents' },
             { label: 'Gestion du bâtiment - Les modèles', value: '4 - Gestion du bâtiment/5 - Les modèles' },
             { label: 'Gestion du bâtiment - Les travaux', value: '4 - Gestion du bâtiment/6 - Les travaux' },
             
             # Registre d'accessibilité
-            { label: 'Registre d\'accessibilité', value: '5 - Registre d\'accessibilité' },
-            { label: 'Registre d\'accessibilité - Les Modèles', value: '5 - Registre d\'accessibilité/1 - Les Modèles' },
-            { label: 'Registre d\'accessibilité - Les registres d\'accessibilité', value: '5 - Registre d\'accessibilité/2 - Les registres d\'accessibilité' },
-            { label: 'Registre d\'accessibilité - Les documents', value: '5 - Registre d\'accessibilité/3 - Les documents' },
+            { label: "Registre d'accessibilité", value: "5 - Registre d'accessibilité" },
+            { label: "Registre d'accessibilité - Les Modèles", value: "5 - Registre d'accessibilité/1 - Les Modèles" },
+            { label: "Registre d'accessibilité - Les registres d'accessibilité", value: "5 - Registre d'accessibilité/2 - Les registres d'accessibilité" },
+            { label: "Registre d'accessibilité - Les documents", value: "5 - Registre d'accessibilité/3 - Les documents" },
             
             # Plan de prévention
             { label: 'Plan de prévention', value: '6 - Plan de prévention' },
