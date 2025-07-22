@@ -55,82 +55,82 @@ collections:
             { label: 'Fonctionnalités générales - Champs personnalisés', value: 'general-usage/custom-fields' },
             { label: 'Fonctionnalités générales - Documents', value: 'general-usage/documents' },
             
-            # Fonctionnalités communes
-            { label: 'Fonctionnalités communes', value: 'fonctionnalites-communes' },
-            { label: 'Fonctionnalités communes - Activités', value: 'fonctionnalites-communes/activites' },
-            { label: 'Fonctionnalités communes - Sites', value: 'fonctionnalites-communes/sites' },
-            { label: 'Fonctionnalités communes - Matériels', value: 'fonctionnalites-communes/materiels' },
-            { label: 'Fonctionnalités communes - Prestataires', value: 'fonctionnalites-communes/prestataires' },
-            { label: 'Fonctionnalités communes - Interventions', value: 'fonctionnalites-communes/interventions' },
-            { label: 'Fonctionnalités communes - Synthèses - Calendrier - Messages', value: 'fonctionnalites-communes/syntheses-calendrier-messages' },
+            # # Fonctionnalités communes
+            # { label: 'Fonctionnalités communes', value: 'fonctionnalites-communes' },
+            # { label: 'Fonctionnalités communes - Activités', value: 'fonctionnalites-communes/activites' },
+            # { label: 'Fonctionnalités communes - Sites', value: 'fonctionnalites-communes/sites' },
+            # { label: 'Fonctionnalités communes - Matériels', value: 'fonctionnalites-communes/materiels' },
+            # { label: 'Fonctionnalités communes - Prestataires', value: 'fonctionnalites-communes/prestataires' },
+            # { label: 'Fonctionnalités communes - Interventions', value: 'fonctionnalites-communes/interventions' },
+            # { label: 'Fonctionnalités communes - Synthèses - Calendrier - Messages', value: 'fonctionnalites-communes/syntheses-calendrier-messages' },
             
-            # Registre de sécurité
-            { label: 'Registre de sécurité', value: 'registre-securite' },
-            { label: 'Registre de sécurité - Commissions de sécurité', value: 'registre-securite/commissions-securite' },
-            { label: 'Registre de sécurité - Prescriptions', value: 'registre-securite/prescriptions' },
-            { label: "Registre de sécurité - Demandes de devis et d'intervention", value: "registre-securite/demandes-devis-intervention" },
-            { label: 'Registre de sécurité - Interventions du registre de sécurité', value: 'registre-securite/interventions-registre-securite' },
-            { label: 'Registre de sécurité - Observations', value: 'registre-securite/observations' },
-            { label: 'Registre de sécurité - Formations et personnels', value: 'registre-securite/formations-personnels' },
-            { label: 'Registre de sécurité - Génération des documents', value: 'registre-securite/generation-documents' },
+            # # Registre de sécurité
+            # { label: 'Registre de sécurité', value: 'registre-securite' },
+            # { label: 'Registre de sécurité - Commissions de sécurité', value: 'registre-securite/commissions-securite' },
+            # { label: 'Registre de sécurité - Prescriptions', value: 'registre-securite/prescriptions' },
+            # { label: "Registre de sécurité - Demandes de devis et d'intervention", value: "registre-securite/demandes-devis-intervention" },
+            # { label: 'Registre de sécurité - Interventions du registre de sécurité', value: 'registre-securite/interventions-registre-securite' },
+            # { label: 'Registre de sécurité - Observations', value: 'registre-securite/observations' },
+            # { label: 'Registre de sécurité - Formations et personnels', value: 'registre-securite/formations-personnels' },
+            # { label: 'Registre de sécurité - Génération des documents', value: 'registre-securite/generation-documents' },
             
-            # Gestion du bâtiment
-            { label: 'Gestion du bâtiment', value: 'gestion-batiment' },
-            { label: 'Gestion du bâtiment - Anomalies', value: 'gestion-batiment/anomalies' },
-            { label: "Gestion du bâtiment - Demandes d'intervention ou de devis", value: "gestion-batiment/demandes-intervention-devis" },
-            { label: 'Gestion du bâtiment - Interventions de la gestion du bâtiment', value: 'gestion-batiment/interventions-gestion-batiment' },
-            { label: 'Gestion du bâtiment - Génération des documents', value: 'gestion-batiment/generation-documents' },
-            { label: 'Gestion du bâtiment - Les modèles', value: 'gestion-batiment/modeles' },
-            { label: 'Gestion du bâtiment - Les travaux', value: 'gestion-batiment/travaux' },
+            # # Gestion du bâtiment
+            # { label: 'Gestion du bâtiment', value: 'gestion-batiment' },
+            # { label: 'Gestion du bâtiment - Anomalies', value: 'gestion-batiment/anomalies' },
+            # { label: "Gestion du bâtiment - Demandes d'intervention ou de devis", value: "gestion-batiment/demandes-intervention-devis" },
+            # { label: 'Gestion du bâtiment - Interventions de la gestion du bâtiment', value: 'gestion-batiment/interventions-gestion-batiment' },
+            # { label: 'Gestion du bâtiment - Génération des documents', value: 'gestion-batiment/generation-documents' },
+            # { label: 'Gestion du bâtiment - Les modèles', value: 'gestion-batiment/modeles' },
+            # { label: 'Gestion du bâtiment - Les travaux', value: 'gestion-batiment/travaux' },
             
-            # Registre d'accessibilité
-            { label: "Registre d'accessibilité", value: "registre-accessibilite" },
-            { label: "Registre d'accessibilité - Les Modèles", value: "registre-accessibilite/modeles" },
-            { label: "Registre d'accessibilité - Les registres d'accessibilité", value: "registre-accessibilite/registres-accessibilite" },
-            { label: "Registre d'accessibilité - Les documents", value: "registre-accessibilite/documents" },
+            # # Registre d'accessibilité
+            # { label: "Registre d'accessibilité", value: "registre-accessibilite" },
+            # { label: "Registre d'accessibilité - Les Modèles", value: "registre-accessibilite/modeles" },
+            # { label: "Registre d'accessibilité - Les registres d'accessibilité", value: "registre-accessibilite/registres-accessibilite" },
+            # { label: "Registre d'accessibilité - Les documents", value: "registre-accessibilite/documents" },
             
-            # Plan de prévention
-            { label: 'Plan de prévention', value: 'plan-prevention' },
-            { label: 'Plan de prévention - Les modèles', value: 'plan-prevention/modeles' },
-            { label: 'Plan de prévention - Les plans de prévention', value: 'plan-prevention/plans-prevention' },
+            # # Plan de prévention
+            # { label: 'Plan de prévention', value: 'plan-prevention' },
+            # { label: 'Plan de prévention - Les modèles', value: 'plan-prevention/modeles' },
+            # { label: 'Plan de prévention - Les plans de prévention', value: 'plan-prevention/plans-prevention' },
             
-            # Permis de feu
-            { label: 'Permis de feu', value: 'permis-feu' },
-            { label: 'Permis de feu - Les modèles', value: 'permis-feu/modeles' },
-            { label: 'Permis de feu - Les permis de feu', value: 'permis-feu/permis-feu' },
+            # # Permis de feu
+            # { label: 'Permis de feu', value: 'permis-feu' },
+            # { label: 'Permis de feu - Les modèles', value: 'permis-feu/modeles' },
+            # { label: 'Permis de feu - Les permis de feu', value: 'permis-feu/permis-feu' },
             
-            # Entrées Sorties
-            { label: 'Entrées Sorties', value: 'entrees-sorties' },
-            { label: 'Entrées Sorties - Les modèles', value: 'entrees-sorties/modeles' },
-            { label: 'Entrées Sorties - Les entrées sorties', value: 'entrees-sorties/entrees-sorties' },
+            # # Entrées Sorties
+            # { label: 'Entrées Sorties', value: 'entrees-sorties' },
+            # { label: 'Entrées Sorties - Les modèles', value: 'entrees-sorties/modeles' },
+            # { label: 'Entrées Sorties - Les entrées sorties', value: 'entrees-sorties/entrees-sorties' },
             
-            # DUERP
-            { label: 'DUERP', value: 'duerp' },
-            { label: 'DUERP - Les modèles', value: 'duerp/modeles' },
-            { label: 'DUERP - Les DUERP', value: 'duerp/duerp' },
+            # # DUERP
+            # { label: 'DUERP', value: 'duerp' },
+            # { label: 'DUERP - Les modèles', value: 'duerp/modeles' },
+            # { label: 'DUERP - Les DUERP', value: 'duerp/duerp' },
             
-            # Carnet sanitaire
-            { label: 'Carnet sanitaire', value: 'carnet-sanitaire' },
-            { label: 'Carnet sanitaire - Paramètres du carnet sanitaire', value: 'carnet-sanitaire/parametres-carnet-sanitaire' },
-            { label: 'Carnet sanitaire - Les relevés du carnet sanitaire', value: 'carnet-sanitaire/releves-carnet-sanitaire' },
+            # # Carnet sanitaire
+            # { label: 'Carnet sanitaire', value: 'carnet-sanitaire' },
+            # { label: 'Carnet sanitaire - Paramètres du carnet sanitaire', value: 'carnet-sanitaire/parametres-carnet-sanitaire' },
+            # { label: 'Carnet sanitaire - Les relevés du carnet sanitaire', value: 'carnet-sanitaire/releves-carnet-sanitaire' },
             
-            # Formulaire
-            { label: 'Formulaire', value: 'formulaire' },
+            # # Formulaire
+            # { label: 'Formulaire', value: 'formulaire' },
             
-            # Applications mobile
-            { label: 'Applications mobile', value: 'applications-mobile' },
-            { label: 'Applications mobile - Installation et fonctionnalités principales', value: 'applications-mobile/installation-fonctionnalites-principales' },
-            { label: 'Applications mobile - Les interventions', value: 'applications-mobile/interventions' },
-            { label: 'Applications mobile - Commission de sécurité', value: 'applications-mobile/commission-securite' },
-            { label: 'Applications mobile - Les anomalies', value: 'applications-mobile/anomalies' },
-            { label: 'Applications mobile - Le matériel', value: 'applications-mobile/materiel' },
-            { label: 'Applications mobile - Module plan de prévention', value: 'applications-mobile/module-plan-prevention' },
-            { label: 'Applications mobile - Module permis de feu', value: 'applications-mobile/module-permis-feu' },
-            { label: 'Applications mobile - Module entrées - sorties', value: 'applications-mobile/module-entrees-sorties' },
-            { label: 'Applications mobile - Module carnet sanitaire', value: 'applications-mobile/module-carnet-sanitaire' },
+            # # Applications mobile
+            # { label: 'Applications mobile', value: 'applications-mobile' },
+            # { label: 'Applications mobile - Installation et fonctionnalités principales', value: 'applications-mobile/installation-fonctionnalites-principales' },
+            # { label: 'Applications mobile - Les interventions', value: 'applications-mobile/interventions' },
+            # { label: 'Applications mobile - Commission de sécurité', value: 'applications-mobile/commission-securite' },
+            # { label: 'Applications mobile - Les anomalies', value: 'applications-mobile/anomalies' },
+            # { label: 'Applications mobile - Le matériel', value: 'applications-mobile/materiel' },
+            # { label: 'Applications mobile - Module plan de prévention', value: 'applications-mobile/module-plan-prevention' },
+            # { label: 'Applications mobile - Module permis de feu', value: 'applications-mobile/module-permis-feu' },
+            # { label: 'Applications mobile - Module entrées - sorties', value: 'applications-mobile/module-entrees-sorties' },
+            # { label: 'Applications mobile - Module carnet sanitaire', value: 'applications-mobile/module-carnet-sanitaire' },
             
-            # Prestataires
-            { label: 'Prestataires', value: 'prestataires' },
+            # # Prestataires
+            # { label: 'Prestataires', value: 'prestataires' },
           ]
         }
       - { label: 'Body', name: 'body', widget: 'markdown' }

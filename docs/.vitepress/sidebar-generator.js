@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import matter from 'gray-matter'
 
 /**
  * Génère automatiquement la sidebar basée sur la structure des dossiers
@@ -81,8 +82,11 @@ export function generateSidebar(docsPath = './docs') {
           if (hasMatchingMdFileInside) {
             // Le dossier contient un fichier .md avec le même nom, afficher directement le fichier
             const mdFilePath = path.join(relativePath, `${entry.name}.md`)
+            const fullMdPath = path.join(dirPath, entry.name, `${entry.name}.md`)
+            const titleFromMd = extractTitleFromMarkdown(fullMdPath)
+            
             items.push({
-              text: formatTitle(entry.name),
+              text: titleFromMd || formatTitle(entry.name, fullPath),
               link: `/${mdFilePath.replace(/\\/g, '/').replace('.md', '')}`
             })
           } else if (!hasMatchingMdFile) {
@@ -91,14 +95,14 @@ export function generateSidebar(docsPath = './docs') {
             
             if (children.length > 0) {
               items.push({
-                text: formatTitle(entry.name),
+                text: formatTitle(entry.name, fullPath),
                 collapsed: false,
                 items: children
               })
             } else {
               // Dossier vide, on l'ajoute quand même pour la structure
               items.push({
-                text: formatTitle(entry.name),
+                text: formatTitle(entry.name, fullPath),
                 collapsed: false,
                 items: []
               })
@@ -111,8 +115,9 @@ export function generateSidebar(docsPath = './docs') {
           
           // Ne pas inclure index.md dans la sidebar (il sera la page d'accueil)
           if (fileName !== 'index') {
+            const titleFromMd = extractTitleFromMarkdown(fullPath)
             items.push({
-              text: formatTitle(fileName),
+              text: titleFromMd || formatTitle(fileName, dirPath),
               link: `/${relativePath.replace(/\\/g, '/').replace('.md', '')}`
             })
           }
@@ -125,8 +130,38 @@ export function generateSidebar(docsPath = './docs') {
     return items
   }
   
+  /**
+   * Extrait le titre du frontmatter d'un fichier markdown
+   * @param {string} filePath - Chemin vers le fichier markdown
+   * @returns {string|null} Le titre extrait ou null si non trouvé
+   */
+  function extractTitleFromMarkdown(filePath) {
+    try {
+      if (fs.existsSync(filePath)) {
+        const fileContent = fs.readFileSync(filePath, 'utf8')
+        const { data } = matter(fileContent)
+        if (data && data.title) {
+          return data.title
+        }
+      }
+      return null
+    } catch (error) {
+      console.warn(`Erreur lors de l'extraction du titre de ${filePath}:`, error.message)
+      return null
+    }
+  }
+
   // Fonction pour formater le titre
-  function formatTitle(name) {
+  function formatTitle(name, dirPath) {
+    // Vérifier s'il existe un fichier index.md dans le dossier
+    const indexPath = path.join(dirPath, 'index.md')
+    const titleFromIndex = extractTitleFromMarkdown(indexPath)
+    
+    if (titleFromIndex) {
+      return titleFromIndex
+    }
+    
+    // Sinon, utiliser le formatage standard
     // Supprimer les numéros de préfixe (ex: "1 - Activités" -> "Activités")
     let title = name.replace(/^\d+\s*-\s*/, '')
     

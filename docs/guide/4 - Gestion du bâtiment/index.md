@@ -1,3 +1,0 @@
----
-title: Gestion du bâtiment
----

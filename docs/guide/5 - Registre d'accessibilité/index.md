@@ -1,3 +1,0 @@
----
-title: Registre d'accessibilité
----

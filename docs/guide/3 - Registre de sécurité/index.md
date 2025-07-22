@@ -1,3 +1,0 @@
----
-title: Registre de sécurité
----
