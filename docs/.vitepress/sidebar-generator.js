@@ -47,9 +47,14 @@ export function generateSidebar(docsPath = './docs') {
       const directories = new Map()
       const markdownFiles = new Map()
       
-      // Fonction pour normaliser un nom (remplacer les espaces par des tirets)
-      const normalizeName = (name) => {
-        return name.toLowerCase().replace(/\s+/g, '-')
+      // Fonction utilitaire pour normaliser les noms (minuscules, sans accents, tirets)
+      function normalizeName(name) {
+        return name
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "") // Enlever les accents
+          .replace(/[^\w\s-]/g, "")     // Enlever les caractères spéciaux
+          .replace(/\s+/g, "-")         // Remplacer les espaces par des tirets
+          .toLowerCase();                 // Mettre en minuscules
       }
       
       // Première passe : cataloguer les dossiers et fichiers .md
