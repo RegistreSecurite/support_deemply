@@ -1,7 +1,7 @@
 ---
 title: "Guide des Prestataires"
 description: "Test avec le dossier 4 - Prestataires"
-folder: "fonctionnalités communes/4 - Prestataires"
+folder: "fonctionnalites-communes/prestataires"
 ---
 
 # Guide des Prestataires
