@@ -123,26 +123,29 @@ for (const fichier of fichiers) {
   console.log(`📝 Titre détecté: ${title || 'aucun'}`);
   
   // Construire le chemin de destination
-  const normalizeTitle = (text) => {
-    return text
-      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Enlever les accents
-      .replace(/\s+/g, '-'); // Remplacer les espaces par des tirets
-  };
-
   if (folderPath && title) {
     // Nouvelle logique: créer un dossier avec le même nom que le fichier dans le chemin du folder
-    const normalizedTitle = normalizeTitle(title);
     destinationDir = path.join(destinationBase, folderPath, fichier.name.replace('.md', ''));
-    finalFileName = `${normalizedTitle}.md`;
+    finalFileName = `${title.normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .toLowerCase()}.md`;
   } else if (folderPath) {
-    const normalizedTitle = title ? normalizeTitle(title) : '';
     destinationDir = path.join(destinationBase, folderPath, fichier.name.replace('.md', ''));
-    finalFileName = `${normalizedTitle}.md`;
+    finalFileName = `${title.normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .toLowerCase()}.md`;
   } else if (title) {
     // Fallback si pas de folder mais un titre
-    const normalizedTitle = normalizeTitle(title);
-    destinationDir = path.join(destinationBase, normalizedTitle);
-    finalFileName = `${normalizedTitle}.md`;
+    destinationDir = path.join(destinationBase, title);
+    finalFileName = `${title.normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .toLowerCase()}.md`;
   }
   
   const destinationPath = path.join(destinationDir, finalFileName);
