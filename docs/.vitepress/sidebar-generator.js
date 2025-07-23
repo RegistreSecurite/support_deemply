@@ -17,11 +17,39 @@ export function generateSidebar(docsPath = './docs') {
       const entries = fs.readdirSync(dirPath, { withFileTypes: true })
         .filter(entry => !entry.name.startsWith('.') && !entry.name.startsWith('_'))
         .sort((a, b) => {
-          // Trier les dossiers avant les fichiers, puis par ordre numérique des préfixes
+          // Trier les dossiers avant les fichiers
           if (a.isDirectory() && !b.isDirectory()) return -1
           if (!a.isDirectory() && b.isDirectory()) return 1
           
-          // Extraire les numéros de préfixe (ex: "1 - Activités" -> 1)
+          // Si les deux sont des dossiers, vérifier s'ils ont un index.md avec un order
+          if (a.isDirectory() && b.isDirectory()) {
+            const indexPathA = path.join(dirPath, a.name, 'index.md')
+            const indexPathB = path.join(dirPath, b.name, 'index.md')
+            
+            const dataA = extractFrontmatterData(indexPathA)
+            const dataB = extractFrontmatterData(indexPathB)
+            
+            // Si les deux ont un order dans le frontmatter, les trier par order
+            if (dataA.order !== 999 || dataB.order !== 999) {
+              return dataA.order - dataB.order
+            }
+          }
+          
+          // Si les deux sont des fichiers, vérifier s'ils ont un order dans le frontmatter
+          if (!a.isDirectory() && !b.isDirectory() && a.name.endsWith('.md') && b.name.endsWith('.md')) {
+            const filePathA = path.join(dirPath, a.name)
+            const filePathB = path.join(dirPath, b.name)
+            
+            const dataA = extractFrontmatterData(filePathA)
+            const dataB = extractFrontmatterData(filePathB)
+            
+            // Si les deux ont un order dans le frontmatter, les trier par order
+            if (dataA.order !== 999 || dataB.order !== 999) {
+              return dataA.order - dataB.order
+            }
+          }
+          
+          // Fallback: Extraire les numéros de préfixe (ex: "1 - Activités" -> 1)
           const getPrefix = (name) => {
             const match = name.match(/^(\d+)\s*-\s*/)
             return match ? parseInt(match[1], 10) : 999999 // Les fichiers sans préfixe à la fin
@@ -225,31 +253,53 @@ export function generateSidebar(docsPath = './docs') {
   }
   
   /**
-   * Extrait le titre du frontmatter d'un fichier markdown
+   * Extrait les métadonnées du frontmatter d'un fichier markdown
    * @param {string} filePath - Chemin vers le fichier markdown
-   * @returns {string|null} Le titre extrait ou null si non trouvé
+   * @returns {Object} Les métadonnées extraites (title, order, etc.)
    */
-  function extractTitleFromMarkdown(filePath) {
+  function extractFrontmatterData(filePath) {
+    const result = {
+      title: null,
+      order: 999 // Valeur par défaut si order n'est pas spécifié
+    }
+    
     try {
       if (fs.existsSync(filePath)) {
         const fileContent = fs.readFileSync(filePath, 'utf8')
         
         // Vérifier si le fichier a un frontmatter (entre --- et ---)
-        const frontmatterMatch = fileContent.match(/^---([\s\S]*?)---/)
+        const frontmatterMatch = fileContent.match(/^---(\s*\S*?)---/)
         
         if (frontmatterMatch && frontmatterMatch[1]) {
+          const frontmatter = frontmatterMatch[1]
+          
           // Extraire le titre du frontmatter
-          const titleMatch = frontmatterMatch[1].match(/title:\s*([^\n]+)/)
+          const titleMatch = frontmatter.match(/title:\s*([^\n]+)/)
           if (titleMatch && titleMatch[1]) {
-            return titleMatch[1].trim()
+            result.title = titleMatch[1].trim()
+          }
+          
+          // Extraire l'ordre du frontmatter
+          const orderMatch = frontmatter.match(/order:\s*(\d+)/)
+          if (orderMatch && orderMatch[1]) {
+            result.order = parseInt(orderMatch[1], 10)
           }
         }
       }
-      return null
+      return result
     } catch (error) {
-      console.warn(`Erreur lors de l'extraction du titre de ${filePath}:`, error.message)
-      return null
+      console.warn(`Erreur lors de l'extraction des métadonnées de ${filePath}:`, error.message)
+      return result
     }
+  }
+  
+  /**
+   * Extrait le titre du frontmatter d'un fichier markdown
+   * @param {string} filePath - Chemin vers le fichier markdown
+   * @returns {string|null} Le titre extrait ou null si non trouvé
+   */
+  function extractTitleFromMarkdown(filePath) {
+    return extractFrontmatterData(filePath).title
   }
 
   // Fonction pour formater le titre
