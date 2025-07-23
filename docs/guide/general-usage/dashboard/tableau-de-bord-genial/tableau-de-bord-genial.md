@@ -1,6 +1,6 @@
 ---
-title: tableau de bord génial
-description: tableau de bord génial desc
+title: tableau de bord génial rrr
+description: tableau de bord génial desc rrr
 file_type: content
 folder: general-usage/dashboard
 ---
