@@ -49,20 +49,18 @@ collections:
           widget: 'select',
           options: [
             # Fonctionnalités générales
-            { label: 'Fonctionnalités générales', value: 'general-usage' },
             { label: 'Fonctionnalités générales - Paramètres', value: 'general-usage/parameters' },
             { label: 'Fonctionnalités générales - Tableau de bord', value: 'general-usage/dashboard' },
             { label: 'Fonctionnalités générales - Champs personnalisés', value: 'general-usage/custom-fields' },
             { label: 'Fonctionnalités générales - Documents', value: 'general-usage/documents' },
             
             # # Fonctionnalités communes
-            # { label: 'Fonctionnalités communes', value: 'fonctionnalites-communes' },
-            # { label: 'Fonctionnalités communes - Activités', value: 'fonctionnalites-communes/activites' },
-            # { label: 'Fonctionnalités communes - Sites', value: 'fonctionnalites-communes/sites' },
-            # { label: 'Fonctionnalités communes - Matériels', value: 'fonctionnalites-communes/materiels' },
-            # { label: 'Fonctionnalités communes - Prestataires', value: 'fonctionnalites-communes/prestataires' },
-            # { label: 'Fonctionnalités communes - Interventions', value: 'fonctionnalites-communes/interventions' },
-            # { label: 'Fonctionnalités communes - Synthèses - Calendrier - Messages', value: 'fonctionnalites-communes/syntheses-calendrier-messages' },
+            { label: 'Fonctionnalités communes - Activités', value: 'common-core/activities' },
+            { label: 'Fonctionnalités communes - Sites', value: 'common-core/sites' },
+            { label: 'Fonctionnalités communes - Matériels', value: 'common-core/equipments' },
+            { label: 'Fonctionnalités communes - Prestataires', value: 'common-core/providers' },
+            { label: 'Fonctionnalités communes - Interventions', value: 'common-core/interventions' },
+            { label: 'Fonctionnalités communes - Synthèses - Calendrier - Messages', value: 'common-core/others' },
             
             # # Registre de sécurité
             # { label: 'Registre de sécurité', value: 'registre-securite' },
@@ -105,9 +103,9 @@ collections:
             # { label: 'Entrées Sorties - Les entrées sorties', value: 'entrees-sorties/entrees-sorties' },
             
             # # DUERP
-            # { label: 'DUERP', value: 'duerp' },
-            # { label: 'DUERP - Les modèles', value: 'duerp/modeles' },
-            # { label: 'DUERP - Les DUERP', value: 'duerp/duerp' },
+            { label: 'DUERP - Le paramètrage', value: 'duerp/parameters' },
+            { label: 'DUERP - Les évaluations', value: 'duerp/ratings' },
+            { label: 'DUERP - Les DUERP', value: 'duerp/duerp' },
             
             # # Carnet sanitaire
             # { label: 'Carnet sanitaire', value: 'carnet-sanitaire' },
