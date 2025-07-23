@@ -108,6 +108,23 @@ export function generateSidebar(docsPath = './docs') {
             // Ignore les erreurs de lecture du dossier
           }
           
+          // Vérifier si le dossier contient un fichier index.md
+          let hasIndexMd = false;
+          try {
+            const insideEntries = fs.readdirSync(fullPath, { withFileTypes: true })
+            hasIndexMd = insideEntries.some(insideEntry => 
+              insideEntry.isFile() && insideEntry.name === 'index.md'
+            )
+          } catch (error) {
+            // Ignore les erreurs de lecture du dossier
+          }
+          
+          if (!hasIndexMd) {
+            // Si le dossier ne contient pas de index.md, on ne l'affiche pas dans la sidebar
+            console.log(`Ignoring directory ${entry.name} as it does not contain index.md`)
+            continue;
+          }
+          
           // Si le dossier contient un fichier avec le même nom (normalisé), on ignore le dossier mais on ajoute le fichier
           if (hasFileWithSameNameAsDir) {
             console.log(`Ignoring directory ${entry.name} as it contains a file with the same normalized name`)
