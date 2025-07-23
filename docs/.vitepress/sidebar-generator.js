@@ -296,7 +296,7 @@ export function generateSidebar(docsPath = './docs') {
         const fileContent = fs.readFileSync(filePath, 'utf8')
         
         // Vérifier si le fichier a un frontmatter (entre --- et ---)
-        const frontmatterMatch = fileContent.match(/^---(\s*\S*?)---/)
+        const frontmatterMatch = fileContent.match(/^---([\s\S]*?)---/)
         
         if (frontmatterMatch && frontmatterMatch[1]) {
           const frontmatter = frontmatterMatch[1]
