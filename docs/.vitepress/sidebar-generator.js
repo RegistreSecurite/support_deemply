@@ -119,12 +119,6 @@ export function generateSidebar(docsPath = './docs') {
             // Ignore les erreurs de lecture du dossier
           }
           
-          if (!hasIndexMd) {
-            // Si le dossier ne contient pas de index.md, on ne l'affiche pas dans la sidebar
-            console.log(`Ignoring directory ${entry.name} as it does not contain index.md`)
-            continue;
-          }
-          
           // Si le dossier contient un fichier avec le même nom (normalisé), on ignore le dossier mais on ajoute le fichier
           if (hasFileWithSameNameAsDir) {
             console.log(`Ignoring directory ${entry.name} as it contains a file with the same normalized name`)
@@ -174,13 +168,21 @@ export function generateSidebar(docsPath = './docs') {
             const children = buildSidebarFromDirectory(fullPath, relativePath)
             
             if (children.length > 0) {
-              items.push({
-                text: formatTitle(entry.name, fullPath),
-                collapsed: false,
-                items: children
-              })
-            } else {
-              // Dossier vide, on l'ajoute quand même pour la structure
+              // Si le dossier contient un fichier index.md, on l'affiche comme un dossier
+              // Sinon, on ajoute directement son contenu au niveau parent
+              if (hasIndexMd) {
+                items.push({
+                  text: formatTitle(entry.name, fullPath),
+                  collapsed: false,
+                  items: children
+                })
+              } else {
+                // Ajouter directement les enfants au niveau parent
+                console.log(`Adding children of ${entry.name} directly to parent as it does not contain index.md`)
+                items.push(...children)
+              }
+            } else if (hasIndexMd) {
+              // Dossier vide avec index.md, on l'ajoute quand même pour la structure
               items.push({
                 text: formatTitle(entry.name, fullPath),
                 collapsed: false,
