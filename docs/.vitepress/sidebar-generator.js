@@ -199,10 +199,14 @@ export function generateSidebar(docsPath = './docs') {
               // Si le dossier contient un fichier index.md, on l'affiche comme un dossier
               // Sinon, on ajoute directement son contenu au niveau parent
               if (hasIndexMd) {
+                const indexPath = path.join(fullPath, 'index.md')
+                const frontmatterData = extractFrontmatterData(indexPath)
+                
                 items.push({
-                  text: formatTitle(entry.name, fullPath),
+                  text: frontmatterData.title || formatTitle(entry.name, fullPath),
                   collapsed: false,
-                  items: children
+                  items: children,
+                  order: frontmatterData.order // Ajouter l'ordre pour le tri final
                 })
               } else {
                 // Ajouter directement les enfants au niveau parent
@@ -211,10 +215,14 @@ export function generateSidebar(docsPath = './docs') {
               }
             } else if (hasIndexMd) {
               // Dossier vide avec index.md, on l'ajoute quand même pour la structure
+              const indexPath = path.join(fullPath, 'index.md')
+              const frontmatterData = extractFrontmatterData(indexPath)
+              
               items.push({
-                text: formatTitle(entry.name, fullPath),
+                text: frontmatterData.title || formatTitle(entry.name, fullPath),
                 collapsed: false,
-                items: []
+                items: [],
+                order: frontmatterData.order // Ajouter l'ordre pour le tri final
               })
             }
           }
@@ -248,6 +256,26 @@ export function generateSidebar(docsPath = './docs') {
     } catch (error) {
       console.warn(`Erreur lors de la lecture du dossier ${dirPath}:`, error.message)
     }
+    
+    // Tri final des éléments basé sur la propriété order
+    items.sort((a, b) => {
+      const orderA = a.order || 999
+      const orderB = b.order || 999
+      
+      if (orderA !== orderB) {
+        return orderA - orderB
+      }
+      
+      // Si même ordre, trier alphabétiquement par texte
+      return a.text.localeCompare(b.text)
+    })
+    
+    // Nettoyer la propriété order des éléments finaux
+    items.forEach(item => {
+      if (item.order !== undefined) {
+        delete item.order
+      }
+    })
     
     return items
   }
