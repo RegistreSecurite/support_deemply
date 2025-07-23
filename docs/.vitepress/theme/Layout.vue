@@ -1,7 +1,7 @@
 <template>
     <Layout>
       <template #doc-top>
-        <div style="max-width: 688px;">
+        <div style="max-width: 688px; margin: 0 auto;">
           <div class="vp-doc h1">
             <h1 id="custom-title" tabindex="-1">
               {{ frontmatter.title }}
