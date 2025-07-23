@@ -63,14 +63,13 @@ collections:
             { label: 'Fonctionnalités communes - Synthèses - Calendrier - Messages', value: 'common-core/others' },
             
             # # Registre de sécurité
-            # { label: 'Registre de sécurité', value: 'registre-securite' },
-            # { label: 'Registre de sécurité - Commissions de sécurité', value: 'registre-securite/commissions-securite' },
-            # { label: 'Registre de sécurité - Prescriptions', value: 'registre-securite/prescriptions' },
-            # { label: "Registre de sécurité - Demandes de devis et d'intervention", value: "registre-securite/demandes-devis-intervention" },
-            # { label: 'Registre de sécurité - Interventions du registre de sécurité', value: 'registre-securite/interventions-registre-securite' },
-            # { label: 'Registre de sécurité - Observations', value: 'registre-securite/observations' },
-            # { label: 'Registre de sécurité - Formations et personnels', value: 'registre-securite/formations-personnels' },
-            # { label: 'Registre de sécurité - Génération des documents', value: 'registre-securite/generation-documents' },
+            { label: 'Registre de sécurité - Observations', value: 'registre-securite/observations' },
+            { label: 'Registre de sécurité - Commissions de sécurité', value: 'registre-securite/commissions' },
+            { label: 'Registre de sécurité - Prescriptions', value: 'registre-securite/prescriptions' },
+            { label: "Registre de sécurité - Demandes de devis et d'intervention", value: "registre-securite/requests" },
+            { label: 'Registre de sécurité - Interventions du registre de sécurité', value: 'registre-securite/interventions' },
+            { label: 'Registre de sécurité - Formations et personnels', value: 'registre-securite/trainings-staff' },
+            { label: 'Registre de sécurité - Génération des documents', value: 'registre-securite/documents' },
             
             # # Gestion du bâtiment
             # { label: 'Gestion du bâtiment', value: 'gestion-batiment' },

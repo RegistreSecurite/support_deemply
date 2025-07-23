@@ -1,5 +1,5 @@
 ---
 title: DUERP
-order: 2
+order: 9
 folder: duerp
 ---
