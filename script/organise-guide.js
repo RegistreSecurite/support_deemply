@@ -73,6 +73,53 @@ function updateImageReferencesInMarkdownFiles(files, oldPath, newPath) {
   }
 }
 
+// Fonction pour corriger tous les chemins d'images relatifs dans les fichiers markdown
+function fixAllImagePaths(files) {
+  console.log('🔍 Recherche et correction des chemins d\'images relatifs...');
+  let totalFixed = 0;
+  
+  for (const file of files) {
+    try {
+      const content = fs.readFileSync(file.fullPath, 'utf8');
+      
+      // Rechercher les références d'images relatives sans le préfixe /images/
+      // Format: ![alt](nom-image.jpg) - sans /images/ au début
+      const markdownImgRegex = /!\[([^\]]*)\]\((?!\/|http|https)([^\)]+)\)/g;
+      const htmlImgRegex = /<img[^>]*src=["'](?!\/|http|https)([^"']+)["']/g;
+      
+      // Remplacer les références relatives par des références avec /images/
+      let updatedContent = content.replace(markdownImgRegex, (match, alt, path) => {
+        // Vérifier si le chemin est déjà dans le format /images/
+        if (path.startsWith('/images/')) {
+          return match;
+        }
+        
+        // Extraire juste le nom du fichier (sans chemin relatif)
+        const fileName = path.split('/').pop();
+        return `![${alt}](/images/${fileName})`;
+      });
+      
+      updatedContent = updatedContent.replace(htmlImgRegex, (match, path) => {
+        // Extraire juste le nom du fichier (sans chemin relatif)
+        const fileName = path.split('/').pop();
+        return match.replace(path, `/images/${fileName}`);
+      });
+      
+      // Écrire le contenu mis à jour si des modifications ont été faites
+      if (content !== updatedContent) {
+        fs.writeFileSync(file.fullPath, updatedContent, 'utf8');
+        console.log(`✅ Chemins d'images corrigés dans ${file.relativePath}`);
+        totalFixed++;
+      }
+    } catch (error) {
+      console.error(`❌ Erreur lors de la correction des chemins d'images dans ${file.relativePath}:`, error.message);
+    }
+  }
+  
+  console.log(`🎉 Terminé! ${totalFixed} fichiers ont été corrigés.`);
+  return totalFixed;
+}
+
 // Fonction pour chercher récursivement les fichiers .md et les images dans tous les sous-dossiers
 function findMarkdownFiles(dir, files = [], images = []) {
   const items = fs.readdirSync(dir);
@@ -162,6 +209,12 @@ if (images.length > 0) {
       console.error(`❌ Erreur lors du traitement de l'image ${image.name}:`, error.message);
     }
   }
+}
+
+// Corriger tous les chemins d'images relatifs dans les fichiers markdown
+const fixedFiles = fixAllImagePaths(fichiers);
+if (fixedFiles > 0) {
+  console.log(`✨ ${fixedFiles} fichiers ont été mis à jour avec des chemins d'images corrects.`);
 }
 
 for (const fichier of fichiers) {
