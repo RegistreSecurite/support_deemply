@@ -8,7 +8,7 @@ C'est mon superguide h1
 
 j'ajoute des choses
 
-<video controls width="250">
+<video controls>
 
   <source src="docs/public/images/le-permis-de-feu-digitalisé-présenté-par-registresecurite.com.mp4" type="video/mp4" />
 
