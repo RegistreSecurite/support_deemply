@@ -1,9 +1,8 @@
 <template>
     <Layout>
-      <template #doc-before>
-        <div class="custom-header">
+      <template #doc-top>
+        <div>
           <h1>{{ frontmatter.title }}</h1>
-          <p class="subtitle">{{ frontmatter.subtitle }}</p>
         </div>
       </template>
     </Layout>
@@ -18,9 +17,4 @@
   </script>
   
   <style>
-  .custom-header {
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--vp-c-divider);
-    margin-bottom: 2rem;
-  }
   </style>
