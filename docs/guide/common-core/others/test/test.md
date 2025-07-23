@@ -8,6 +8,4 @@ folder: common-core/others
 
 Actualisez la solution 
 
-![](/images/design-sans-titre-5-.png)
-
 sdsqdqsdsqdqsqdqssdsqdsdqddqdqsdsdqd
