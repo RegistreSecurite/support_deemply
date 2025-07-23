@@ -120,6 +120,57 @@ function fixAllImagePaths(files) {
   return totalFixed;
 }
 
+// Fonction pour ajouter le titre du frontmatter en H1 au début du contenu
+function addH1TitleToMarkdownFiles(files) {
+  console.log('🔍 Ajout du titre en H1 au début des fichiers markdown...');
+  let totalFixed = 0;
+  
+  for (const file of files) {
+    try {
+      const content = fs.readFileSync(file.fullPath, 'utf8');
+      
+      // Extraire le frontmatter
+      const frontmatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+      if (!frontmatterMatch) {
+        continue; // Pas de frontmatter, on passe au fichier suivant
+      }
+      
+      const frontmatter = frontmatterMatch[1];
+      const titleMatch = frontmatter.match(/title:\s*["']?([^"'\n]+)["']?/);
+      if (!titleMatch) {
+        continue; // Pas de titre dans le frontmatter, on passe au fichier suivant
+      }
+      
+      const title = titleMatch[1].trim();
+      
+      // Vérifier si le titre est déjà présent en H1 juste après le frontmatter
+      const contentAfterFrontmatter = content.substring(frontmatterMatch[0].length).trim();
+      const h1TitleRegex = new RegExp(`^\s*#\s+${title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'm');
+      
+      if (h1TitleRegex.test(contentAfterFrontmatter)) {
+        continue; // Le titre est déjà présent en H1, on passe au fichier suivant
+      }
+      
+      // Ajouter le titre en H1 après le frontmatter
+      const updatedContent = content.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, (match) => {
+        return `${match}# ${title}\n\n`;
+      });
+      
+      // Écrire le contenu mis à jour
+      if (content !== updatedContent) {
+        fs.writeFileSync(file.fullPath, updatedContent, 'utf8');
+        console.log(`✅ Titre H1 ajouté dans ${file.relativePath}`);
+        totalFixed++;
+      }
+    } catch (error) {
+      console.error(`❌ Erreur lors de l'ajout du titre H1 dans ${file.relativePath}:`, error.message);
+    }
+  }
+  
+  console.log(`🎉 Terminé! ${totalFixed} fichiers ont été mis à jour avec un titre H1.`);
+  return totalFixed;
+}
+
 // Fonction pour chercher récursivement les fichiers .md et les images dans tous les sous-dossiers
 function findMarkdownFiles(dir, files = [], images = []) {
   const items = fs.readdirSync(dir);
@@ -215,6 +266,12 @@ if (images.length > 0) {
 const fixedFiles = fixAllImagePaths(fichiers);
 if (fixedFiles > 0) {
   console.log(`✨ ${fixedFiles} fichiers ont été mis à jour avec des chemins d'images corrects.`);
+}
+
+// Ajouter le titre en H1 au début du contenu des fichiers markdown
+const addedH1Files = addH1TitleToMarkdownFiles(fichiers);
+if (addedH1Files > 0) {
+  console.log(`✨ ${addedH1Files} fichiers ont été mis à jour avec un titre H1.`);
 }
 
 for (const fichier of fichiers) {
