@@ -1,8 +1,11 @@
 <template>
     <Layout>
       <template #doc-top>
-        <div>
-          <h1>{{ frontmatter.title }}</h1>
+        <div class="vp-doc">
+          <h1 id="custom-title" tabindex="-1">
+            {{ frontmatter.title }}
+            <a class="header-anchor" href="#custom-title" aria-label="Permalink to &quot;{{ frontmatter.title }}&quot;"></a>
+          </h1>
         </div>
       </template>
     </Layout>
@@ -17,4 +20,8 @@
   </script>
   
   <style>
+  /* Masquer le premier H1 du contenu markdown si nécessaire */
+  .vp-doc .content-container h1:first-of-type {
+    display: none;
+  }
   </style>
