@@ -1,11 +1,13 @@
 <template>
     <Layout>
       <template #doc-top>
-        <div class="vp-doc">
-          <h1 id="custom-title" tabindex="-1">
-            {{ frontmatter.title }}
+        <div class="content-container">
+          <div class="vp-doc h1">
+            <h1 id="custom-title" tabindex="-1">
+              {{ frontmatter.title }}
             <a class="header-anchor" href="#custom-title" aria-label="Permalink to &quot;{{ frontmatter.title }}&quot;"></a>
           </h1>
+        </div>
         </div>
       </template>
     </Layout>
